@@ -2,3 +2,5 @@
 @import "../vendor/fonts/InterWeb/inter.css";
 
 @import "../blocks/page/page.css";
+@import "../blocks/header/header.css";
+@import "../blocks/header/__logo/header__logo.css";
