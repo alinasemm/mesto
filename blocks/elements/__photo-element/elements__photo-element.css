@@ -1,4 +1,5 @@
 .elements__photo-element {
     width: 282px;
     height: 282px;
+    z-index: 1;
 }
