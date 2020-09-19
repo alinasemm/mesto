@@ -13,3 +13,9 @@
 @import "../blocks/profile/__information/profile__information.css";
 @import "../blocks/profile/__name/profile__name.css";
 @import "../blocks/profile/__role/profile__role.css";
+
+@import "../blocks/elements/elements.css";
+@import "../blocks/elements/__element/elements__element.css";
+@import "../blocks/elements/__photo-element/elements__photo-element.css";
+
+
