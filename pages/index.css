@@ -19,4 +19,7 @@
 @import "../blocks/elements/__photo-element/elements__photo-element.css";
 @import "../blocks/elements/__text/elements__text.css";
 
+@import "../blocks/elements/__group/elements__group.css";
+@import "../blocks/elements/__like/elements__like.css";
+
 
