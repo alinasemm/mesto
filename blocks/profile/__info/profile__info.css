@@ -1,9 +1,22 @@
 .profile__info {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
     margin-right: 246px;
-    width: 336px;
-    height: 77px;
+    min-width: 280px;
+    height: 66px;
     color: #FFFFFF;
 
 }
+
+@media screen and (max-width: 1280px) {
+    .profile__info {
+        align-items: center;
+        max-width: 336px;
+        height: 77px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+}
+
+
+
