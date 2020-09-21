@@ -1,7 +1,6 @@
 .profile__info {
     display: flex;
     flex-direction: column;
-    margin-right: 246px;
     min-width: 280px;
     height: 66px;
     color: #FFFFFF;

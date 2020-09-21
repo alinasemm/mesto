@@ -1,10 +1,18 @@
 .footer {
     color: #545454;
     margin: 66px 763px 0 199px;
-    width: 318px;
-    height: 18px;
+    min-width: 282px;
+    min-height: 14px;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
 }
+
+@media screen and (max-width: 320px) {
+    .footer {
+        margin: 0 19px 0px 19px;
+    }
+}
+
+
