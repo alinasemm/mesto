@@ -1,19 +1,16 @@
 .profile__info {
     display: flex;
     flex-direction: column;
-    min-width: 280px;
-    height: 66px;
+    max-width: 336px;
+    height: 77px;
     color: #FFFFFF;
-
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 680px) {
     .profile__info {
         align-items: center;
-        max-width: 336px;
-        height: 77px;
-        margin-right: 20px;
-        margin-left: 20px;
+        min-width: 280px;
+        height: 66px;
     }
 }
 
