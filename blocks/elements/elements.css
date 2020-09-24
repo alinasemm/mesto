@@ -2,12 +2,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
     gap: 18px;
-    justify-content: center;
+    justify-items: center;
     margin: 75px auto 66px auto;
     max-width: 882px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1018px) {
     .elements {
       margin: 36px 19px 48px 19px;
     }

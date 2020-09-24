@@ -1,16 +1,13 @@
 .page {
     padding-top: 45px;
     padding-bottom: 60px;
-    padding-left: 199px;
-    padding-right: 199px;
-    min-width: 320px;
     background: #000000;;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: Inter, 'Helvetica Neue', Arial, sans-serif;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 1018px) {
     .page {
         padding-left: 0px;
         padding-right: 0px;  

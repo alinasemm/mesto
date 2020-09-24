@@ -1,6 +1,6 @@
 .footer {
     color: #545454;
-    margin-left: 0px;
+    margin: 0 199px 0 199px;
     min-width: 282px;
     min-height: 14px;
     font-style: normal;
@@ -9,7 +9,7 @@
     line-height: 22px;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 1018px) {
     .footer {
         margin: 0 19px 0px 19px;
     }
