@@ -5,3 +5,13 @@
     z-index: 0;
     border-radius: 10px;
 }
+
+.elements__element:nth-child(odd) {
+    justify-self: flex-end;
+}
+
+@media screen and (max-width: 618px) {
+.elements__element .elements__element:nth-child(odd) {
+    justify-self: center;
+ }
+}
