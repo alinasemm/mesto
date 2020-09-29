@@ -5,6 +5,11 @@
     background-color: transparent;
     border: 0;
     outline: 0;
+    transition: opacity 150ms;
+}
+
+.profile__edit-button:hover {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 320px) {
