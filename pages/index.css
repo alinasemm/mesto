@@ -24,8 +24,9 @@
 
 @import "../blocks/footer/footer.css";
 
-@import "../blocks/popap/popap.css";
-@import "../blocks/popap/__container/popap__container.css";
+@import "../blocks/popup/popup.css";
+@import "../blocks/popup/__container/popup__container.css";
+@import "../blocks/popup/__close-icon/popup__close-icon.css";
 
 
 
