@@ -7,3 +7,11 @@
     text-align: center;
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 920px) {
+    .popup__submit-button-name {
+        font-size: 14px;
+        line-height: 17px;   
+    }
+}
+

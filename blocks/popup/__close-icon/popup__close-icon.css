@@ -7,3 +7,11 @@
     right: -40.7px;
     top: -40.7px;
 }
+
+@media screen and (max-width: 920px) {
+    .popup__close-icon {
+        width: 26px;
+        height: 26px;
+        right: 8px;
+    }
+}
