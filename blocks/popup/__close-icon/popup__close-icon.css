@@ -6,6 +6,8 @@
     position: absolute;
     right: -40.7px;
     top: -40.7px;
+    transition: opacity 150ms;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 920px) {
@@ -14,4 +16,8 @@
         height: 26px;
         right: 8px;
     }
+}
+
+.popup__close-icon:hover {
+    opacity: 0.6;
 }

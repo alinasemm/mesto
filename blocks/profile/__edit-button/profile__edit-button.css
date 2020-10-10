@@ -6,6 +6,7 @@
     border: 0;
     outline: 0;
     transition: opacity 150ms;
+    cursor: pointer;
 }
 
 .profile__edit-button:hover {

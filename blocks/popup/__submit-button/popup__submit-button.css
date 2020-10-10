@@ -6,10 +6,16 @@
     margin-top: 48px;
     background: #000000;
     border-radius: 2px;
+    transition: opacity 150ms;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 920px) {
     .popup__submit-button {
         margin-top: 45px;
     }
+}
+
+.popup__submit-button:hover {
+    opacity: 0.8;
 }
