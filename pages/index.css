@@ -27,7 +27,11 @@
 @import "../blocks/popup/popup.css";
 @import "../blocks/popup/__container/popup__container.css";
 @import "../blocks/popup/__close-icon/popup__close-icon.css";
-
+@import "../blocks/popup/__name/popup__name.css";
+@import "../blocks/popup/__field1/popup__field1.css";
+@import "../blocks/popup/__field2/popup__field2.css";
+@import "../blocks/popup/__submit-button/popup__submit-button.css";
+@import "../blocks/popup/__submit-button-name/popup__submit-button-name.css";
 
 
 
