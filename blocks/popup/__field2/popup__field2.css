@@ -11,6 +11,8 @@
     font-size: 14px;
     line-height: 17px;
     height: 14px;
+    outline: 0;
+    width: 100%;
 }
 
 @media screen and (max-width: 920px) {
