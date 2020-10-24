@@ -8,6 +8,8 @@
     top: -40.7px;
     transition: opacity 150ms;
     cursor: pointer;
+    background-color: transparent;
+    border: 0;
 }
 
 @media screen and (max-width: 920px) {
