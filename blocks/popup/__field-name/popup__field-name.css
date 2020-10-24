@@ -1,4 +1,4 @@
-.popup__field1 {
+.popup__field-name {
     display: block;
     padding: 0;
     padding-bottom: 13.26px;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 920px) {
-    .popup__field1 {
+    .popup__field-name {
         padding-bottom: 13px;
     }
 }

@@ -1,4 +1,4 @@
-.popup__field2 {
+.popup__field-job {
     display: block;
     padding: 0;
     padding-top: 29.74px;
@@ -16,7 +16,7 @@
 }
 
 @media screen and (max-width: 920px) {
-    .popup__field2 {
+    .popup__field-job {
         padding-bottom: 13px;
     }
 }
