@@ -8,11 +8,21 @@
     border-radius: 2px;
     transition: opacity 150ms;
     cursor: pointer;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 @media screen and (max-width: 920px) {
     .popup__submit-button {
         margin-top: 45px;
+
+        font-size: 14px;
+        line-height: 17px; 
     }
 }
 
