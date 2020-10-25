@@ -29,6 +29,5 @@
 @import "../blocks/popup/__container/popup__container.css";
 @import "../blocks/popup/__close-icon/popup__close-icon.css";
 @import "../blocks/popup/__name/popup__name.css";
-@import "../blocks/popup/__field-name/popup__field-name.css";
-@import "../blocks/popup/__field-job/popup__field-job.css";
+@import "../blocks/popup/__field/popup__field.css";
 @import "../blocks/popup/__submit-button/popup__submit-button.css";
