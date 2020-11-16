@@ -43,11 +43,44 @@ closeIcon.addEventListener("click", handleCloseIconClick);
 
 
 const container = document.querySelector('.elements'); 
-const template = document.querySelector('#element').content;
+const template = document.querySelector('#template').content;
 
-const newElement = template.cloneNode(true);
+const initialElements = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
 
-newElement.querySelector('.elements__photo-element').src = 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg';
-newElement.querySelector('.elements__text').textContent = 'Архыз';
+function createElement(name, link) {
+    const newElement = template.cloneNode(true);
 
-container.appendChild(newElement);
+    newElement.querySelector('.elements__photo-element').src = link;
+    newElement.querySelector('.elements__text').textContent = name;
+    
+    container.appendChild(newElement);
+}
+
+initialElements.forEach(function(elementData) {
+    createElement(elementData.name, elementData.link);
+});
