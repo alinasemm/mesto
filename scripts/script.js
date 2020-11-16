@@ -40,3 +40,14 @@ function handleCloseIconClick () {
     closePopup();
 }
 closeIcon.addEventListener("click", handleCloseIconClick);
+
+
+const container = document.querySelector('.elements'); 
+const template = document.querySelector('#element').content;
+
+const newElement = template.cloneNode(true);
+
+newElement.querySelector('.elements__photo-element').src = 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg';
+newElement.querySelector('.elements__text').textContent = 'Архыз';
+
+container.appendChild(newElement);
