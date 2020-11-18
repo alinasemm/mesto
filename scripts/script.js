@@ -33,8 +33,8 @@ addButton.addEventListener("click", handleAddButtonClick);
 let form = document.querySelector("#container");
 let formCards = document.querySelector("#container-elements");
 
-function closePopup () {
-    popupProfile.classList.remove("popup_opened");
+function closePopup (popup) {
+    popup.classList.remove("popup_opened");
 }
 function addInfoToPage () {
     profileName.textContent = nameField.value;
@@ -42,17 +42,32 @@ function addInfoToPage () {
 }
 function handleFormSubmit (event) {
     event.preventDefault();
-    closePopup();
+    closePopup(popupProfile);
     addInfoToPage();
 }
+
+// function handleFormSubmitCards (event) {
+//     event.preventDefault();
+//     closePopup(popupElements);
+// }
+
 form.addEventListener("submit", handleFormSubmit); 
+// formCards.addEventListener("submit", handleFormSubmitCards);
 
 
 let closeIcon = document.querySelector("#close-icon");
-function handleCloseIconClick () {
-    closePopup();
+let closeIconCards = document.querySelector("#close-icon-cards");
+
+function handleCloseIconClick (popup) {
+    closePopup(popupProfile);
 }
+
+function handleCloseIconCardsClick (popup) {
+    closePopup(popupElements);
+}
+
 closeIcon.addEventListener("click", handleCloseIconClick);
+closeIconCards.addEventListener("click", handleCloseIconCardsClick);
 
 
 const container = document.querySelector('.elements'); 
