@@ -110,7 +110,7 @@ function createElement(name, link) {
         event.target.classList.toggle('elements__like_active');
     }); 
     
-    container.appendChild(newElement);
+    container.prepend(newElement);
 }
 
 initialElements.forEach(function(elementData) {
