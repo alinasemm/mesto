@@ -105,6 +105,9 @@ function createElement(name, link) {
 
     newElement.querySelector('.elements__photo-element').src = link;
     newElement.querySelector('.elements__text').textContent = name;
+    newElement.querySelector('.elements__like').addEventListener('click', function (event) {
+        event.target.classList.toggle('elements__like_active');
+    }); 
     
     container.appendChild(newElement);
 }
