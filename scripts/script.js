@@ -42,17 +42,18 @@ function addInfoToPage () {
 }
 function handleFormSubmit (event) {
     event.preventDefault();
-    closePopup(popupProfile);
+    closePopup(popupProfile, );
     addInfoToPage();
 }
 
-// function handleFormSubmitCards (event) {
-//     event.preventDefault();
-//     closePopup(popupElements);
-// }
+function handleFormSubmitCards (event) {
+    event.preventDefault();
+    createElement(placeField.value, linkField.value);
+    closePopup(popupElements);
+}
 
 form.addEventListener("submit", handleFormSubmit); 
-// formCards.addEventListener("submit", handleFormSubmitCards);
+formCards.addEventListener("submit", handleFormSubmitCards);
 
 
 let closeIcon = document.querySelector("#close-icon");
