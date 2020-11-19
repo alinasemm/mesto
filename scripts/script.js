@@ -109,13 +109,18 @@ function createElement(name, link) {
     newElement.querySelector('.elements__like').addEventListener('click', function (event) {
         event.target.classList.toggle('elements__like_active');
     }); 
-    
+    newElement.querySelector('.elements__trash').addEventListener('click', function (event) {
+        console.log(event.target.parentNode)
+        event.target.parentNode.remove();
+    }); 
+
     container.prepend(newElement);
 }
 
 initialElements.forEach(function(elementData) {
     createElement(elementData.name, elementData.link);
 });
+
 
 // ...
 
