@@ -8,6 +8,9 @@ let placeField = document.querySelector("#place");
 let linkField = document.querySelector("#link");
 let profileName = document.querySelector("#profile-name");
 let profileJob = document.querySelector("#profile-job");
+const popupPhotoElement = document.querySelector("#popup-photo-element");
+const popupPhoto = document.querySelector("#popup-photo");
+const popupPhotoName = document.querySelector("#popup-photo-name");
 
 function openPopup (popup) {
     popup.classList.add("popup_opened");
@@ -58,17 +61,23 @@ formCards.addEventListener("submit", handleFormSubmitCards);
 
 let closeIcon = document.querySelector("#close-icon");
 let closeIconCards = document.querySelector("#close-icon-cards");
+const closeIconBigPhoto = document.querySelector("#close-icone-big-photo");
 
-function handleCloseIconClick (popup) {
+function handleCloseIconClick () {
     closePopup(popupProfile);
 }
 
-function handleCloseIconCardsClick (popup) {
+function handleCloseIconCardsClick () {
     closePopup(popupElements);
+}
+
+function handlecloseIconBigPhotoClick () {
+    closePopup(popupPhotoElement);
 }
 
 closeIcon.addEventListener("click", handleCloseIconClick);
 closeIconCards.addEventListener("click", handleCloseIconCardsClick);
+closeIconBigPhoto.addEventListener("click", handlecloseIconBigPhotoClick);
 
 
 const container = document.querySelector('.elements'); 
@@ -104,7 +113,19 @@ const initialElements = [
 function createElement(name, link) {
     const newElement = template.cloneNode(true);
 
-    newElement.querySelector('.elements__photo-element').src = link;
+    const photoElement = newElement.querySelector('.elements__photo-element');
+    photoElement.src = link;
+
+    photoElement.addEventListener('click', function (event) {
+        popupPhoto.src = photoElement.src;
+        popupPhotoName.textContent = name;
+        openPopup(popupPhotoElement);
+    });
+
+
+
+
+
     newElement.querySelector('.elements__text').textContent = name;
     newElement.querySelector('.elements__like').addEventListener('click', function (event) {
         event.target.classList.toggle('elements__like_active');
@@ -120,7 +141,6 @@ function createElement(name, link) {
 initialElements.forEach(function(elementData) {
     createElement(elementData.name, elementData.link);
 });
-
 
 // ...
 
