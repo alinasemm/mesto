@@ -1,0 +1,12 @@
+@media screen and (max-width: 374px) {
+    .popup__field_elements {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+@media screen and (max-width: 374px) {
+    .popup__field_elements + .popup__field_elements {
+        padding-top: 20px;
+    }
+}

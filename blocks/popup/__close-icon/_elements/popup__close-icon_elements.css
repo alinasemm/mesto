@@ -1,0 +1,8 @@
+@media screen and (max-width: 374px) {
+    .popup__close-icon_elements {
+        width: 30px;
+        height: 30px;
+        right: -34px;
+        top: -34px;
+    }
+}
