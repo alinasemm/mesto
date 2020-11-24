@@ -1,13 +1,13 @@
-let editButton = document.querySelector("#edit-button");
-let addButton = document.querySelector("#add-button");
-let popupProfile = document.querySelector("#popup-profile");
-let popupElements = document.querySelector("#popup-elements");
-let nameField = document.querySelector("#name");
-let jobField = document.querySelector("#job");
-let placeField = document.querySelector("#place");
-let linkField = document.querySelector("#link");
-let profileName = document.querySelector("#profile-name");
-let profileJob = document.querySelector("#profile-job");
+const editButton = document.querySelector("#edit-button");
+const addButton = document.querySelector("#add-button");
+const popupProfile = document.querySelector("#popup-profile");
+const popupElements = document.querySelector("#popup-elements");
+const nameField = document.querySelector("#name");
+const jobField = document.querySelector("#job");
+const placeField = document.querySelector("#place");
+const linkField = document.querySelector("#link");
+const profileName = document.querySelector("#profile-name");
+const profileJob = document.querySelector("#profile-job");
 const popupPhotoElement = document.querySelector("#popup-photo-element");
 const popupPhoto = document.querySelector("#popup-photo");
 const popupPhotoName = document.querySelector("#popup-photo-name");
@@ -33,8 +33,8 @@ function handleAddButtonClick () {
 editButton.addEventListener("click", handleEditButtonClick);
 addButton.addEventListener("click", handleAddButtonClick);
 
-let form = document.querySelector("#container");
-let formCards = document.querySelector("#container-elements");
+const form = document.querySelector("#container");
+const formCards = document.querySelector("#container-elements");
 
 function closePopup (popup) {
     popup.classList.remove("popup_opened");
@@ -59,8 +59,8 @@ form.addEventListener("submit", handleFormSubmit);
 formCards.addEventListener("submit", handleFormSubmitCards);
 
 
-let closeIcon = document.querySelector("#close-icon");
-let closeIconCards = document.querySelector("#close-icon-cards");
+const closeIcon = document.querySelector("#close-icon");
+const closeIconCards = document.querySelector("#close-icon-cards");
 const closeIconBigPhoto = document.querySelector("#close-icone-big-photo");
 
 function handleCloseIconClick () {
@@ -115,23 +115,20 @@ function createElement(name, link) {
 
     const photoElement = newElement.querySelector('.elements__photo-element');
     photoElement.src = link;
+    photoElement.alt = name;
 
-    photoElement.addEventListener('click', function (event) {
+    photoElement.addEventListener('click', function () {
         popupPhoto.src = photoElement.src;
+        popupPhoto.alt = name;
         popupPhotoName.textContent = name;
         openPopup(popupPhotoElement);
     });
-
-
-
-
 
     newElement.querySelector('.elements__text').textContent = name;
     newElement.querySelector('.elements__like').addEventListener('click', function (event) {
         event.target.classList.toggle('elements__like_active');
     }); 
     newElement.querySelector('.elements__trash').addEventListener('click', function (event) {
-        console.log(event.target.parentNode)
         event.target.parentNode.remove();
     }); 
 
