@@ -12,11 +12,11 @@
     <div class="page">
 
       <div class="popup" id="popup-profile">
-        <form class="popup__container" id="container" name="container">
-          <button class="popup__close-icon" id="close-icon" type="button"></button>
+        <form class="popup__container" id="popup-profile-container" name="container">
+          <button class="popup__close-icon" id="popup-profile-close-icon" type="button"></button>
           <h2 class="popup__name">Редактировать профиль</h2>
-          <input class="popup__field" id="name" name="name"/>
-          <input class="popup__field" id="job" name="job" />
+          <input class="popup__field" id="popup-profile-name" name="name"/>
+          <input class="popup__field" id="popup-profile-job" name="job" />
           <button class="popup__submit-button">
             Сохранить
           </button>
@@ -24,22 +24,22 @@
       </div>
 
       <div class="popup" id="popup-elements">
-        <form class="popup__container popup__container_elements" id="container-elements" name="container-elements">
-          <button class="popup__close-icon popup__close-icon_elements" id="close-icon-cards" type="button"></button>
+        <form class="popup__container popup__container_elements" id="popup-elements-container" name="container-elements">
+          <button class="popup__close-icon popup__close-icon_elements" id="popup-elements-close-icon" type="button"></button>
           <h2 class="popup__name popup__name_elements">Новое место</h2>
-          <input class="popup__field popup__field_elements" id="place" name="place" placeholder="Название"/>
-          <input class="popup__field popup__field_elements" id="link" name="link" placeholder="Ссылка на картинку"/>
+          <input class="popup__field popup__field_elements" id="popup-elements-place" name="place" placeholder="Название"/>
+          <input class="popup__field popup__field_elements" id="popup-elements-link" name="link" placeholder="Ссылка на картинку"/>
           <button class="popup__submit-button popup__submit-button_elements">
             Создать
           </button>
         </form>
       </div> 
 
-      <div class="popup popup_photo-element" id="popup-photo-element">
-        <div class="popup__container-photo-element">
-          <button class="popup__close-icon" id="close-icone-big-photo"></button>
-          <img class="popup__photo" src="#" alt="" id="popup-photo">
-          <h2 class="popup__photo-name" id="popup-photo-name"></h2>
+      <div class="popup popup_preview" id="popup-preview">
+        <div class="popup__container-preview">
+          <button class="popup__close-icon" id="popup-preview-close-icone"></button>
+          <img class="popup__photo" src="#" alt="" id="popup-preview-photo">
+          <h2 class="popup__photo-name" id="popup-preview-name"></h2>
         </div>
       </div>
 
@@ -53,13 +53,13 @@
           <div class="profile__info">
             <div class="profile__information">
               <h1 class="profile__name" id="profile-name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" id="edit-button" type="button"></button>
+              <button class="profile__edit-button" id="edit-profile-button" type="button"></button>
             </div>
           <h3 class="profile__role" id="profile-job">Исследователь океана</h3>
           </div>
         </div>
         
-        <button class="profile__add-button" id="add-button" type="button"></button>
+        <button class="profile__add-button" id="add-element-button" type="button"></button>
       </section>
 
       <section class="elements">

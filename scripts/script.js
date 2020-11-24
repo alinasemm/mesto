@@ -1,33 +1,36 @@
-const popupPhotoElement = document.querySelector("#popup-photo-element");
+const popupPhotoElement = document.querySelector("#popup-preview");
+const popupPhoto = document.querySelector("#popup-preview-photo");
+const popupPhotoName = document.querySelector("#popup-preview-name");
+
+const template = document.querySelector("#template").content;
+const container = document.querySelector(".elements");
 
 function createElement(name, link) {
-    const template = document.querySelector("#template").content;
     const newElement = template.cloneNode(true);
 
     const photoElement = newElement.querySelector(".elements__photo-element");
     photoElement.src = link;
     photoElement.alt = name;
-
     photoElement.addEventListener("click", function () {
-        const popupPhoto = document.querySelector("#popup-photo");
         popupPhoto.src = photoElement.src;
         popupPhoto.alt = name;
-
-        const popupPhotoName = document.querySelector("#popup-photo-name");
         popupPhotoName.textContent = name;
-
         openPopup(popupPhotoElement);
     });
 
-    newElement.querySelector(".elements__text").textContent = name;
-    newElement.querySelector(".elements__like").addEventListener("click", function (event) {
+    const textElement = newElement.querySelector(".elements__text");
+    textElement.textContent = name;
+
+    const likeElement = newElement.querySelector(".elements__like");
+    likeElement.addEventListener("click", function (event) {
         event.target.classList.toggle("elements__like_active");
     }); 
-    newElement.querySelector(".elements__trash").addEventListener("click", function (event) {
+
+    const trashElement = newElement.querySelector(".elements__trash");
+    trashElement.addEventListener("click", function (event) {
         event.target.parentNode.remove();
     }); 
-
-    const container = document.querySelector(".elements"); 
+ 
     container.prepend(newElement);
 }
 
@@ -42,8 +45,8 @@ function closePopup (popup) {
 function initProfilePopup () {
     const popupProfile = document.querySelector("#popup-profile");
 
-    const nameField = popupProfile.querySelector("#name");
-    const jobField = popupProfile.querySelector("#job");
+    const nameField = popupProfile.querySelector("#popup-profile-name");
+    const jobField = popupProfile.querySelector("#popup-profile-job");
     const profileName = document.querySelector("#profile-name");
     const profileJob = document.querySelector("#profile-job");
     function addInfoToFields () {
@@ -55,62 +58,53 @@ function initProfilePopup () {
         profileJob.textContent = jobField.value;
     }
 
-    const editButton = document.querySelector("#edit-button");
-    function handleEditButtonClick () {
+    const editButton = document.querySelector("#edit-profile-button");
+    editButton.addEventListener("click", function () {
         addInfoToFields();
         openPopup(popupProfile);
-    }
-    editButton.addEventListener("click", handleEditButtonClick);
+    });
 
-    const form = popupProfile.querySelector("#container");
-    function handleFormSubmit (event) {
+    const form = popupProfile.querySelector("#popup-profile-container");
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
         closePopup(popupProfile);
         addInfoToPage();
-    }
-    form.addEventListener("submit", handleFormSubmit); 
+    }); 
 
-    const closeIcon = document.querySelector("#close-icon");
-    function handleCloseIconClick () {
+    const closeIcon = document.querySelector("#popup-profile-close-icon");
+    closeIcon.addEventListener("click", function () {
         closePopup(popupProfile);
-    }
-    closeIcon.addEventListener("click", handleCloseIconClick);
+    });
 }
 
 function initElementsPopup () {
     const popupElements = document.querySelector("#popup-elements");
 
-    const addButton = document.querySelector("#add-button");
-    function handleAddButtonClick () {
+    const addButton = document.querySelector("#add-element-button");
+    addButton.addEventListener("click", function () {
         openPopup(popupElements);
-    }
-    addButton.addEventListener("click", handleAddButtonClick);
+    });
 
-    const formCards = popupElements.querySelector("#container-elements");
-    function handleFormSubmitCards (event) {
+    const form = popupElements.querySelector("#popup-elements-container");
+    const placeField = form.querySelector("#popup-elements-place");
+    const linkField = form.querySelector("#popup-elements-link");
+    form.addEventListener("submit", function handleFormSubmit (event) {
         event.preventDefault();
-
-        const placeField = document.querySelector("#place");
-        const linkField = document.querySelector("#link");
         createElement(placeField.value, linkField.value);
-
         closePopup(popupElements);
-    }
-    formCards.addEventListener("submit", handleFormSubmitCards);
+    });
 
-    const closeIconCards = document.querySelector("#close-icon-cards");
-    function handleCloseIconCardsClick () {
+    const closeIcon = popupElements.querySelector("#popup-elements-close-icon");
+    closeIcon.addEventListener("click", function () {
         closePopup(popupElements);
-    }
-    closeIconCards.addEventListener("click", handleCloseIconCardsClick);
+    });
 }
 
 function initPhotoElementPopup () {
-    const closeIconBigPhoto = document.querySelector("#close-icone-big-photo");
-    function handlecloseIconBigPhotoClick () {
+    const closeIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
+    closeIcon.addEventListener("click", function () {
         closePopup(popupPhotoElement);
-    }
-    closeIconBigPhoto.addEventListener("click", handlecloseIconBigPhotoClick);
+    });
 }
 
 function addInitialElements () {
