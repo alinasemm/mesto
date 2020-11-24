@@ -88,7 +88,7 @@ function initElementsPopup () {
     const form = popupElements.querySelector("#popup-elements-container");
     const placeField = form.querySelector("#popup-elements-place");
     const linkField = form.querySelector("#popup-elements-link");
-    form.addEventListener("submit", function handleFormSubmit (event) {
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
         createElement(placeField.value, linkField.value);
         closePopup(popupElements);
