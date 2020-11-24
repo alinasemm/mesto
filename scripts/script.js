@@ -141,23 +141,3 @@ function createElement(name, link) {
 initialElements.forEach(function(elementData) {
     createElement(elementData.name, elementData.link);
 });
-
-// ...
-
-// function openPopup (popup) {
-//     popup.classList.add("popup_opened");
-// }
-
-
-// function sum (a, b) {
-//     return a + b;
-// }
-
-// function sum (a, b) {
-//     return a + b;
-// }
-
-// let result0 = sum(3, 4);
-// let result1 = sum(8, 9);
-// let result2 = sum(2, 4);
-// console.log(result0, result1, result2);
