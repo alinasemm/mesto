@@ -80,55 +80,55 @@ closeIconCards.addEventListener("click", handleCloseIconCardsClick);
 closeIconBigPhoto.addEventListener("click", handlecloseIconBigPhotoClick);
 
 
-const container = document.querySelector('.elements'); 
-const template = document.querySelector('#template').content;
+const container = document.querySelector(".elements"); 
+const template = document.querySelector("#template").content;
 
 const initialElements = [
     {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        name: "Архыз",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
     },
     {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        name: "Челябинская область",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg"
     },
     {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        name: "Иваново",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg"
     },
     {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: "Камчатка",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
     },
     {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        name: "Холмогорский район",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
     },
     {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: "Байкал",
+        link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
     }
 ];
 
 function createElement(name, link) {
     const newElement = template.cloneNode(true);
 
-    const photoElement = newElement.querySelector('.elements__photo-element');
+    const photoElement = newElement.querySelector(".elements__photo-element");
     photoElement.src = link;
     photoElement.alt = name;
 
-    photoElement.addEventListener('click', function () {
+    photoElement.addEventListener("click", function () {
         popupPhoto.src = photoElement.src;
         popupPhoto.alt = name;
         popupPhotoName.textContent = name;
         openPopup(popupPhotoElement);
     });
 
-    newElement.querySelector('.elements__text').textContent = name;
-    newElement.querySelector('.elements__like').addEventListener('click', function (event) {
-        event.target.classList.toggle('elements__like_active');
+    newElement.querySelector(".elements__text").textContent = name;
+    newElement.querySelector(".elements__like").addEventListener("click", function (event) {
+        event.target.classList.toggle("elements__like_active");
     }); 
-    newElement.querySelector('.elements__trash').addEventListener('click', function (event) {
+    newElement.querySelector(".elements__trash").addEventListener("click", function (event) {
         event.target.parentNode.remove();
     }); 
 
