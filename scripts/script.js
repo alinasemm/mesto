@@ -23,10 +23,10 @@ const popupElementsCloseIcon = popupElements.querySelector("#popup-elements-clos
 
 const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
 
-function createElement(name, link) {
-    const newElement = template.cloneNode(true);
+function createCard (name, link) {
+    const newCard = template.cloneNode(true);
 
-    const photoElement = newElement.querySelector(".elements__photo-element");
+    const photoElement = newCard.querySelector(".elements__photo-element");
     photoElement.src = link;
     photoElement.alt = name;
     photoElement.addEventListener("click", function () {
@@ -36,20 +36,24 @@ function createElement(name, link) {
         openPopup(popupPhotoElement);
     });
 
-    const textElement = newElement.querySelector(".elements__text");
+    const textElement = newCard.querySelector(".elements__text");
     textElement.textContent = name;
 
-    const likeElement = newElement.querySelector(".elements__like");
+    const likeElement = newCard.querySelector(".elements__like");
     likeElement.addEventListener("click", function (event) {
         event.target.classList.toggle("elements__like_active");
     }); 
 
-    const trashElement = newElement.querySelector(".elements__trash");
+    const trashElement = newCard.querySelector(".elements__trash");
     trashElement.addEventListener("click", function (event) {
         event.target.parentNode.remove();
     }); 
  
-    container.prepend(newElement);
+    return newCard;
+}
+
+function createElement(list, newCard) {
+    list.prepend(newCard);
 }
 
 function openPopup (popup) {
@@ -89,7 +93,7 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    createElement(placeField.value, linkField.value);
+    createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
 });
 popupElementsCloseIcon.addEventListener("click", function () {
@@ -130,5 +134,5 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    createElement(elementData.name, elementData.link);
+    createElement(container, createCard(elementData.name, elementData.link));
 });
