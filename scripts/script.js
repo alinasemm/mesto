@@ -6,9 +6,11 @@ const template = document.querySelector("#template").content;
 const container = document.querySelector(".elements");
 
 const popupProfile = document.querySelector("#popup-profile");
-const nameField = popupProfile.querySelector("#popup-profile-name");
-const jobField = popupProfile.querySelector("#popup-profile-job");
 const profileForm = popupProfile.querySelector("#popup-profile-container");
+const nameField = profileForm.querySelector("#popup-profile-name");
+const nameFieldError = profileForm.querySelector("#popup-profile-name-error");
+const jobField = profileForm.querySelector("#popup-profile-job");
+const jobFieldError = profileForm.querySelector("#popup-profile-job-error");
 const profilePopupCloseIcon = popupProfile.querySelector("#popup-profile-close-icon");
 const profileName = document.querySelector("#profile-name");
 const profileJob = document.querySelector("#profile-job");
@@ -22,6 +24,26 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const popupElementsCloseIcon = popupElements.querySelector("#popup-elements-close-icon");
 
 const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
+
+function showError (input, errorSpan, errorMessage) {
+    input.classList.add('popup__field_error');
+    errorSpan.textContent = errorMessage;
+    errorSpan.classList.add('popup__field-error_active');
+};
+  
+function hideError (input, errorSpan) {
+    input.classList.remove('popup__field_error');
+    errorSpan.classList.remove('popup__field-error_active');
+    errorSpan.textContent = '';
+};
+
+function checkInputValidity (input, errorSpan) {
+    if (!input.validity.valid) {
+        showError(input, errorSpan, input.validationMessage);
+    } else {
+        hideError(input, errorSpan);
+    }
+};  
 
 function createCard (name, link) {
     const newCard = template.cloneNode(true);
@@ -73,6 +95,14 @@ function addProfileInfoToPage () {
     profileName.textContent = nameField.value;
     profileJob.textContent = jobField.value;
 }
+
+nameField.addEventListener('input', function () {
+    checkInputValidity(nameField, nameFieldError);
+});
+
+jobField.addEventListener('input', function () {
+    checkInputValidity(jobField, jobFieldError);
+});
 
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
@@ -136,3 +166,5 @@ const initialElements = [
 initialElements.forEach(function(elementData) {
     createElement(container, createCard(elementData.name, elementData.link));
 });
+
+

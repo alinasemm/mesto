@@ -15,7 +15,7 @@
     
 }
 
-.popup__field + .popup__field {
+.popup__field-error + .popup__field {
     padding-top: 29.74px;
 }
 
@@ -28,3 +28,4 @@
 ::placeholder {
     color: #C4C4C4;
   }
+
