@@ -43,8 +43,9 @@
 
 @import "../blocks/popup/__field/popup__field.css";
 @import "../blocks/popup/__field/_elements/popup__field_elements.css";
-@import "../blocks/popup/__field/__field-error/popup__field-error.css";
 @import "../blocks/popup/__field/_error/popup__field_error.css";
+
+@import "../blocks/popup/__field-error/popup__field-error.css";
 
 @import "../blocks/popup/__submit-button/popup__submit-button.css";
 @import "../blocks/popup/__submit-button/_elements/popup__submit-button_elements.css";

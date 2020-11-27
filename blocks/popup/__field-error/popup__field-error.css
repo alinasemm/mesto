@@ -3,6 +3,9 @@
     font-weight: normal;
     font-size: 12px;
     line-height: 15px;
+    margin-top: 5px;
+    display: block;
+    min-height: 12px;
 
     color: #FF0000;
 }
