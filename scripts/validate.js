@@ -45,7 +45,6 @@ function enableValidation (options) {
     })
 };
 
-
 enableValidation({
     formSelector: '#popup-profile',
     inputSelector: '.popup__field',
@@ -57,7 +56,7 @@ enableValidation({
 enableValidation({
     formSelector: '#popup-elements',
     inputSelector: '.popup__field',
-    submitButtonSelector: '#popup__submit-button',
+    submitButtonSelector: '#popup__submit-button_elements',
     inactiveButtonClass: 'popup__submit-button_inactive',
     inputErrorClass: 'popup__field_error'
 })

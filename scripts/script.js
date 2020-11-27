@@ -67,11 +67,27 @@ function createElement(list, newCard) {
     list.prepend(newCard);
 }
 
+function closePopupOnEscape (event) {
+    if (event.key === "Escape") {
+        const openedPopup = document.querySelector(".popup_opened");
+        if (openedPopup) {
+            closePopup(openedPopup);
+        }
+    }
+}
+
 function openPopup (popup) {
+    popup.addEventListener("keydown", closePopupOnEscape);
     popup.classList.add("popup_opened");
+
+    const focusTimeout = 100
+    setTimeout(function () {
+        popup.focus();
+    }, focusTimeout)
 }
 
 function closePopup (popup) {
+    popup.removeEventListener("keydown", closePopupOnEscape);
     popup.classList.remove("popup_opened");
 }
 
@@ -146,16 +162,6 @@ popupPreviewCloseIcon.addEventListener("click", function () {
 popupPhotoElement.addEventListener("click", function (event) {
     if (event.target === popupPhotoElement) {
         closePopup(popupPhotoElement);
-    }
-});
-
-
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-        const openedPopup = document.querySelector(".popup_opened");
-        if (openedPopup) {
-            closePopup(openedPopup);
-        }
     }
 });
 
