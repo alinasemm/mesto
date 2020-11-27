@@ -15,6 +15,7 @@ const profilePopupCloseIcon = popupProfile.querySelector("#popup-profile-close-i
 const profileName = document.querySelector("#profile-name");
 const profileJob = document.querySelector("#profile-job");
 const editProfileButton = document.querySelector("#edit-profile-button");
+const submitProfileButton = document.querySelector("#popup__submit-button");
 
 const popupElements = document.querySelector("#popup-elements");
 const addElementButton = document.querySelector("#add-element-button");
@@ -44,6 +45,22 @@ function checkInputValidity (input, errorSpan) {
         hideError(input, errorSpan);
     }
 };  
+
+function hasInvalidInput(inputs) {
+    return inputs.some(function (input) {
+        return !input.validity.valid;
+    });
+}
+
+function toggleButtonState(inputs, submitButton) {
+    if (hasInvalidInput(inputs)) {
+        submitButton.classList.add('button_inactive');
+    } else {
+        submitButton.classList.remove('button_inactive');
+    } 
+}
+
+
 
 function createCard (name, link) {
     const newCard = template.cloneNode(true);
@@ -98,6 +115,7 @@ function addProfileInfoToPage () {
 
 nameField.addEventListener('input', function () {
     checkInputValidity(nameField, nameFieldError);
+    toggleButtonState([nameField, jobField], submitProfileButton);
 });
 
 jobField.addEventListener('input', function () {
