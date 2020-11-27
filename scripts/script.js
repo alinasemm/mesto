@@ -67,8 +67,6 @@ function makeButtonInactive(button) {
     button.classList.add('popup__submit-button_inactive');
 }
 
-
-
 function createCard (name, link) {
     const newCard = template.cloneNode(true);
 
@@ -149,6 +147,11 @@ profileForm.addEventListener("submit", function (event) {
 profilePopupCloseIcon.addEventListener("click", function () {
     closePopup(popupProfile);
 });
+popupProfile.addEventListener("click", function (event) {
+    if (event.target === popupProfile) {
+        closePopup(popupProfile);
+    }
+});
 
 
 placeField.addEventListener('input', function () {
@@ -175,10 +178,20 @@ elementsForm.addEventListener("submit", function (event) {
 popupElementsCloseIcon.addEventListener("click", function () {
     closePopup(popupElements);
 });
+popupElements.addEventListener("click", function (event) {
+    if (event.target === popupElements) {
+        closePopup(popupElements);
+    }
+});
 
 
 popupPreviewCloseIcon.addEventListener("click", function () {
     closePopup(popupPhotoElement);
+});
+popupPhotoElement.addEventListener("click", function (event) {
+    if (event.target === popupPhotoElement) {
+        closePopup(popupPhotoElement);
+    }
 });
 
 
