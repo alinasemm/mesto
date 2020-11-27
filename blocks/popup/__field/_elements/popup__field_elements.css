@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 374px) {
-    .popup__field_elements + .popup__field_elements {
-        padding-top: 20px;
+    .popup__field-error + .popup__field_elements {
+        padding-top: 3px;
     }
 }
