@@ -63,6 +63,10 @@ function toggleButtonState(inputs, submitButton) {
     } 
 }
 
+function makeButtonInactive(button) {
+    button.classList.add('popup__submit-button_inactive');
+}
+
 
 
 function createCard (name, link) {
@@ -104,6 +108,12 @@ function openPopup (popup) {
 
 function closePopup (popup) {
     popup.classList.remove("popup_opened");
+}
+
+function cleanInputs (inputs) {
+    inputs.forEach(function (input) {
+        input.value = "";
+    });
 }
 
 function addProfileInfoToFields () {
@@ -159,7 +169,8 @@ elementsForm.addEventListener("submit", function (event) {
     }
     createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
-    // cleanPopupElements() функция, которая очищает введённые данные
+    cleanInputs([placeField, linkField]);
+    makeButtonInactive(submitElementsButton);
 });
 popupElementsCloseIcon.addEventListener("click", function () {
     closePopup(popupElements);
