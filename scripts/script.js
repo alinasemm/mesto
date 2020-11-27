@@ -21,8 +21,11 @@ const popupElements = document.querySelector("#popup-elements");
 const addElementButton = document.querySelector("#add-element-button");
 const elementsForm = popupElements.querySelector("#popup-elements-container");
 const placeField = elementsForm.querySelector("#popup-elements-place");
+const placeFieldError = elementsForm.querySelector("#popup-elements-place-error");
 const linkField = elementsForm.querySelector("#popup-elements-link");
+const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const popupElementsCloseIcon = popupElements.querySelector("#popup-elements-close-icon");
+const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
 const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
 
@@ -117,12 +120,10 @@ nameField.addEventListener('input', function () {
     checkInputValidity(nameField, nameFieldError);
     toggleButtonState([nameField, jobField], submitProfileButton);
 });
-
 jobField.addEventListener('input', function () {
     checkInputValidity(jobField, jobFieldError);
     toggleButtonState([nameField, jobField], submitProfileButton);
 });
-
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
     openPopup(popupProfile);
@@ -140,13 +141,25 @@ profilePopupCloseIcon.addEventListener("click", function () {
 });
 
 
+placeField.addEventListener('input', function () {
+    checkInputValidity(placeField, placeFieldError);
+    toggleButtonState([placeField, linkField], submitElementsButton);
+});
+linkField.addEventListener('input', function () {
+    checkInputValidity(linkField, linkFieldError);
+    toggleButtonState([placeField, linkField], submitElementsButton);
+});
 addElementButton.addEventListener("click", function () {
     openPopup(popupElements);
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    if (hasInvalidInput([placeField, linkField])) {
+        return;
+    }
     createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
+    // cleanPopupElements() функция, которая очищает введённые данные
 });
 popupElementsCloseIcon.addEventListener("click", function () {
     closePopup(popupElements);
