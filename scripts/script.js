@@ -134,6 +134,9 @@ jobField.addEventListener('input', function () {
 });
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
+    checkInputValidity(nameField, nameFieldError);
+    checkInputValidity(jobField, jobFieldError);
+    toggleButtonState([nameField, jobField], submitProfileButton);
     openPopup(popupProfile);
 });
 profileForm.addEventListener("submit", function (event) {
@@ -191,6 +194,16 @@ popupPreviewCloseIcon.addEventListener("click", function () {
 popupPhotoElement.addEventListener("click", function (event) {
     if (event.target === popupPhotoElement) {
         closePopup(popupPhotoElement);
+    }
+});
+
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        const openedPopup = document.querySelector(".popup_opened");
+        if (openedPopup) {
+            closePopup(openedPopup);
+        }
     }
 });
 
