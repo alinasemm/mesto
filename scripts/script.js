@@ -54,9 +54,9 @@ function hasInvalidInput(inputs) {
 
 function toggleButtonState(inputs, submitButton) {
     if (hasInvalidInput(inputs)) {
-        submitButton.classList.add('button_inactive');
+        submitButton.classList.add('popup__submit-button_inactive');
     } else {
-        submitButton.classList.remove('button_inactive');
+        submitButton.classList.remove('popup__submit-button_inactive');
     } 
 }
 
@@ -120,6 +120,7 @@ nameField.addEventListener('input', function () {
 
 jobField.addEventListener('input', function () {
     checkInputValidity(jobField, jobFieldError);
+    toggleButtonState([nameField, jobField], submitProfileButton);
 });
 
 editProfileButton.addEventListener("click", function () {
@@ -128,6 +129,9 @@ editProfileButton.addEventListener("click", function () {
 });
 profileForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    if (hasInvalidInput([nameField, jobField])) {
+        return;
+    }
     closePopup(popupProfile);
     addProfileInfoToPage();
 }); 

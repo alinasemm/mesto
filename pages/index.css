@@ -48,6 +48,7 @@
 
 @import "../blocks/popup/__submit-button/popup__submit-button.css";
 @import "../blocks/popup/__submit-button/_elements/popup__submit-button_elements.css";
+@import "../blocks/popup/__submit-button/_inactive/popup__submit-button_inactive.css";
 
 @import "../blocks/popup/__photo/popup__photo.css";
 

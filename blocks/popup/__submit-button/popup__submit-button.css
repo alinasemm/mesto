@@ -8,6 +8,7 @@
     border-radius: 2px;
     transition: opacity 150ms;
     cursor: pointer;
+    box-sizing: border-box;
 
     font-style: normal;
     font-weight: normal;
