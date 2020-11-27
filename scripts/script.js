@@ -29,39 +29,6 @@ const submitElementsButton = document.querySelector("#popup__submit-button_eleme
 
 const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
 
-function showError (input, errorSpan, errorMessage) {
-    input.classList.add('popup__field_error');
-    errorSpan.textContent = errorMessage;
-    errorSpan.classList.add('popup__field-error_active');
-};
-  
-function hideError (input, errorSpan) {
-    input.classList.remove('popup__field_error');
-    errorSpan.classList.remove('popup__field-error_active');
-    errorSpan.textContent = '';
-};
-
-function checkInputValidity (input, errorSpan) {
-    if (!input.validity.valid) {
-        showError(input, errorSpan, input.validationMessage);
-    } else {
-        hideError(input, errorSpan);
-    }
-};  
-
-function hasInvalidInput(inputs) {
-    return inputs.some(function (input) {
-        return !input.validity.valid;
-    });
-}
-
-function toggleButtonState(inputs, submitButton) {
-    if (hasInvalidInput(inputs)) {
-        submitButton.classList.add('popup__submit-button_inactive');
-    } else {
-        submitButton.classList.remove('popup__submit-button_inactive');
-    } 
-}
 
 function makeButtonInactive(button) {
     button.classList.add('popup__submit-button_inactive');
@@ -124,19 +91,12 @@ function addProfileInfoToPage () {
     profileJob.textContent = jobField.value;
 }
 
-nameField.addEventListener('input', function () {
-    checkInputValidity(nameField, nameFieldError);
-    toggleButtonState([nameField, jobField], submitProfileButton);
-});
-jobField.addEventListener('input', function () {
-    checkInputValidity(jobField, jobFieldError);
-    toggleButtonState([nameField, jobField], submitProfileButton);
-});
+
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
-    checkInputValidity(nameField, nameFieldError);
-    checkInputValidity(jobField, jobFieldError);
-    toggleButtonState([nameField, jobField], submitProfileButton);
+    checkInputValidity(nameField, nameFieldError, 'popup__field_error');
+    checkInputValidity(jobField, jobFieldError, 'popup__field_error');
+    toggleButtonState([nameField, jobField], submitProfileButton, 'popup__submit-button_inactive');
     openPopup(popupProfile);
 });
 profileForm.addEventListener("submit", function (event) {
@@ -157,14 +117,6 @@ popupProfile.addEventListener("click", function (event) {
 });
 
 
-placeField.addEventListener('input', function () {
-    checkInputValidity(placeField, placeFieldError);
-    toggleButtonState([placeField, linkField], submitElementsButton);
-});
-linkField.addEventListener('input', function () {
-    checkInputValidity(linkField, linkFieldError);
-    toggleButtonState([placeField, linkField], submitElementsButton);
-});
 addElementButton.addEventListener("click", function () {
     openPopup(popupElements);
 });
