@@ -22,16 +22,34 @@ function hasInvalidInput(inputs) {
     });
 }
 
+function makeButtonActive(button, inactiveButtonClass) {
+    button.classList.remove(inactiveButtonClass);
+    button.removeAttribute('disabled');
+}
+
+function makeButtonInactive(button, inactiveButtonClass) {
+    button.classList.add(inactiveButtonClass);
+    button.setAttribute('disabled', 'true');
+}
+
 function toggleButtonState(inputs, submitButton, inactiveButtonClass) {
     if (hasInvalidInput(inputs)) {
-        submitButton.classList.add(inactiveButtonClass);
+        makeButtonInactive(submitButton, inactiveButtonClass);
     } else {
-        submitButton.classList.remove(inactiveButtonClass);
+        makeButtonActive(submitButton, inactiveButtonClass);
     } 
 }
 
-function enableValidation (options) {
-    const form = document.querySelector(options.formSelector);
+function resetForm (inputs, errorSpans, inputErrorClass, button, inactiveButtonClass) {
+    inputs.forEach(function (input, i) {
+        const errorSpan = errorSpans[i];
+        hideError(input, errorSpan, inputErrorClass);
+    });
+
+    makeButtonInactive(button, inactiveButtonClass);
+}
+
+function setEventListeners (form, options) {
     const inputs = form.querySelectorAll(options.inputSelector);
     const submitButton = form.querySelector(options.submitButtonSelector);
 
@@ -42,21 +60,25 @@ function enableValidation (options) {
             checkInputValidity(input, errorSpan, options.inputErrorClass);
             toggleButtonState(inputsArr, submitButton, options.inactiveButtonClass);
         });
-    })
+    });
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        makeButtonInactive(submitButton, options.inactiveButtonClass);
+    });
+}
+
+function enableValidation (options) {
+    const forms = document.querySelectorAll(options.formSelector);
+    Array.from(forms).forEach(function(form) {
+        setEventListeners(form, options);
+    });
 };
 
 enableValidation({
-    formSelector: '#popup-profile',
+    formSelector: '.popup_with-validation',
     inputSelector: '.popup__field',
-    submitButtonSelector: '#popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_inactive',
-    inputErrorClass: 'popup__field_error'
-})
-
-enableValidation({
-    formSelector: '#popup-elements',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '#popup__submit-button_elements',
+    submitButtonSelector: '.popup__submit-button',
     inactiveButtonClass: 'popup__submit-button_inactive',
     inputErrorClass: 'popup__field_error'
 })

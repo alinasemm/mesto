@@ -30,10 +30,6 @@ const submitElementsButton = document.querySelector("#popup__submit-button_eleme
 const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
 
 
-function makeButtonInactive(button) {
-    button.classList.add('popup__submit-button_inactive');
-}
-
 function createCard (name, link) {
     const newCard = template.cloneNode(true);
 
@@ -79,11 +75,6 @@ function closePopupOnEscape (event) {
 function openPopup (popup) {
     popup.addEventListener("keydown", closePopupOnEscape);
     popup.classList.add("popup_opened");
-
-    const focusTimeout = 100
-    setTimeout(function () {
-        popup.focus();
-    }, focusTimeout)
 }
 
 function closePopup (popup) {
@@ -110,16 +101,15 @@ function addProfileInfoToPage () {
 
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
-    checkInputValidity(nameField, nameFieldError, 'popup__field_error');
-    checkInputValidity(jobField, jobFieldError, 'popup__field_error');
-    toggleButtonState([nameField, jobField], submitProfileButton, 'popup__submit-button_inactive');
+
+    const inputs = [nameField, jobField];
+    const errorSpans = [nameFieldError, jobFieldError];
+    resetForm(inputs, errorSpans, 'popup__field_error', submitProfileButton, 'popup__submit-button_inactive');
+    
     openPopup(popupProfile);
 });
 profileForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    if (hasInvalidInput([nameField, jobField])) {
-        return;
-    }
     closePopup(popupProfile);
     addProfileInfoToPage();
 }); 
@@ -138,13 +128,9 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    if (hasInvalidInput([placeField, linkField])) {
-        return;
-    }
     createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
-    makeButtonInactive(submitElementsButton);
 });
 popupElementsCloseIcon.addEventListener("click", function () {
     closePopup(popupElements);
