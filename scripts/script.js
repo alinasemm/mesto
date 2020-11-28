@@ -100,7 +100,7 @@ editProfileButton.addEventListener("click", function () {
 
     const inputs = [nameField, jobField];
     const errorSpans = [nameFieldError, jobFieldError];
-    resetForm(inputs, errorSpans, 'popup__field_error', submitProfileButton, 'popup__submit-button_inactive');
+    resetForm(inputs, errorSpans, "popup__field_error", submitProfileButton, "popup__submit-button_inactive");
     
     openPopup(popupProfile);
 });
@@ -125,7 +125,7 @@ elementsForm.addEventListener("submit", function (event) {
 const popups = [popupProfile, popupElements, popupPhotoElement];
 popups.forEach(function (popup) {
     popup.addEventListener("click", function (event) {
-        if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close-icon')) {
+        if (event.target.classList.contains("popup") || event.target.classList.contains("popup__close-icon")) {
             closePopup(popup);
         }
     });

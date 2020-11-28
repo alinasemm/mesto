@@ -5,7 +5,7 @@ function showError (input, errorSpan, errorMessage, inputErrorClass) {
     
 function hideError (input, errorSpan, inputErrorClass) {
     input.classList.remove(inputErrorClass);
-    errorSpan.textContent = '';
+    errorSpan.textContent = "";
 };
 
 function checkInputValidity (input, errorSpan, inputErrorClass) {
@@ -24,12 +24,12 @@ function hasInvalidInput(inputs) {
 
 function makeButtonActive(button, inactiveButtonClass) {
     button.classList.remove(inactiveButtonClass);
-    button.removeAttribute('disabled');
+    button.removeAttribute("disabled");
 }
 
 function makeButtonInactive(button, inactiveButtonClass) {
     button.classList.add(inactiveButtonClass);
-    button.setAttribute('disabled', 'true');
+    button.setAttribute("disabled", "true");
 }
 
 function toggleButtonState(inputs, submitButton, inactiveButtonClass) {
@@ -56,7 +56,7 @@ function setEventListeners (form, options) {
     const inputsArr = Array.from(inputs)
     inputsArr.forEach(function (input) {
         const errorSpan = form.querySelector(`#${input.id}-error`);
-        input.addEventListener('input', function () {
+        input.addEventListener("input", function () {
             checkInputValidity(input, errorSpan, options.inputErrorClass);
             toggleButtonState(inputsArr, submitButton, options.inactiveButtonClass);
         });
@@ -76,9 +76,9 @@ function enableValidation (options) {
 };
 
 enableValidation({
-    formSelector: '.popup_with-validation',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_inactive',
-    inputErrorClass: 'popup__field_error'
+    formSelector: ".popup_with-validation",
+    inputSelector: ".popup__field",
+    submitButtonSelector: ".popup__submit-button",
+    inactiveButtonClass: "popup__submit-button_inactive",
+    inputErrorClass: "popup__field_error"
 })
