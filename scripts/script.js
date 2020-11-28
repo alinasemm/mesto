@@ -11,7 +11,6 @@ const nameField = profileForm.querySelector("#popup-profile-name");
 const nameFieldError = profileForm.querySelector("#popup-profile-name-error");
 const jobField = profileForm.querySelector("#popup-profile-job");
 const jobFieldError = profileForm.querySelector("#popup-profile-job-error");
-const profilePopupCloseIcon = popupProfile.querySelector("#popup-profile-close-icon");
 const profileName = document.querySelector("#profile-name");
 const profileJob = document.querySelector("#profile-job");
 const editProfileButton = document.querySelector("#edit-profile-button");
@@ -24,10 +23,7 @@ const placeField = elementsForm.querySelector("#popup-elements-place");
 const placeFieldError = elementsForm.querySelector("#popup-elements-place-error");
 const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
-const popupElementsCloseIcon = popupElements.querySelector("#popup-elements-close-icon");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
-
-const popupPreviewCloseIcon = popupPhotoElement.querySelector("#popup-preview-close-icone");
 
 
 function createCard (name, link) {
@@ -113,14 +109,6 @@ profileForm.addEventListener("submit", function (event) {
     closePopup(popupProfile);
     addProfileInfoToPage();
 }); 
-profilePopupCloseIcon.addEventListener("click", function () {
-    closePopup(popupProfile);
-});
-popupProfile.addEventListener("click", function (event) {
-    if (event.target === popupProfile) {
-        closePopup(popupProfile);
-    }
-});
 
 
 addElementButton.addEventListener("click", function () {
@@ -132,23 +120,15 @@ elementsForm.addEventListener("submit", function (event) {
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
-popupElementsCloseIcon.addEventListener("click", function () {
-    closePopup(popupElements);
-});
-popupElements.addEventListener("click", function (event) {
-    if (event.target === popupElements) {
-        closePopup(popupElements);
-    }
-});
 
 
-popupPreviewCloseIcon.addEventListener("click", function () {
-    closePopup(popupPhotoElement);
-});
-popupPhotoElement.addEventListener("click", function (event) {
-    if (event.target === popupPhotoElement) {
-        closePopup(popupPhotoElement);
-    }
+const popups = [popupProfile, popupElements, popupPhotoElement];
+popups.forEach(function (popup) {
+    popup.addEventListener("click", function (event) {
+        if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close-icon')) {
+            closePopup(popup);
+        }
+    });
 });
 
 
