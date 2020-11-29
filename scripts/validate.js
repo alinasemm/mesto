@@ -61,16 +61,15 @@ function setEventListeners (form, options) {
             toggleButtonState(inputsArr, submitButton, options.inactiveButtonClass);
         });
     });
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        makeButtonInactive(submitButton, options.inactiveButtonClass);
-    });
 }
 
 function enableValidation (options) {
     const forms = document.querySelectorAll(options.formSelector);
     Array.from(forms).forEach(function(form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            makeButtonInactive(submitButton, options.inactiveButtonClass);
+        });
         setEventListeners(form, options);
     });
 };
