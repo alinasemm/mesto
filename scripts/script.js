@@ -25,6 +25,34 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
+class Card {
+    constructor(name, link) {
+        this.cardElement = template.cloneNode(true);
+
+        const photoElement = this.cardElement.querySelector(".elements__photo-element");
+        photoElement.src = link;
+        photoElement.alt = name;
+        photoElement.addEventListener("click", function () {
+            popupPhoto.src = photoElement.src;
+            popupPhoto.alt = name;
+            popupPhotoName.textContent = name;
+            openPopup(popupPhotoElement);
+        });
+    
+        const textElement = this.cardElement.querySelector(".elements__text");
+        textElement.textContent = name;
+    
+        const likeElement = this.cardElement.querySelector(".elements__like");
+        likeElement.addEventListener("click", function (event) {
+            event.target.classList.toggle("elements__like_active");
+        });
+    
+        const trashElement = this.cardElement.querySelector(".elements__trash");
+        trashElement.addEventListener("click", function (event) {
+            event.target.parentNode.remove();
+        }); 
+    }
+}
 
 function createCard (name, link) {
     const newCard = template.cloneNode(true);
@@ -116,7 +144,11 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    createElement(container, createCard(placeField.value, linkField.value));
+
+    const card = new Card(placeField.value, linkField.value);
+    createElement(container, card.cardElement);
+
+    // createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
@@ -160,7 +192,8 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    createElement(container, createCard(elementData.name, elementData.link));
+    const card = new Card(elementData.name, elementData.link);
+    createElement(container, card.cardElement);
 });
 
 
