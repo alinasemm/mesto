@@ -25,63 +25,55 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
+/*
+
+План:
+1) Вынести каждый из 3-х обработчиков в отдельный метод
+2) Конструктор должен принимать данные карточки и селектор её template-элемента
+3) Перенести функции, которые относятся к карточке в класс
+*/
+
+
+
+
 class Card {
     constructor(name, link) {
         this.cardElement = template.cloneNode(true);
 
-        const photoElement = this.cardElement.querySelector(".elements__photo-element");
-        photoElement.src = link;
-        photoElement.alt = name;
-        photoElement.addEventListener("click", function () {
-            popupPhoto.src = photoElement.src;
-            popupPhoto.alt = name;
-            popupPhotoName.textContent = name;
-            openPopup(popupPhotoElement);
-        });
+        this.photoElement = this.cardElement.querySelector(".elements__photo-element");
+        this.photoElement.src = link;
+        this.photoElement.alt = name;
+        this.photoElement.addEventListener("click", this.handlePhotoElementClick.bind(this));
+//стрелочная функция не может терять this, поэтому используем ее
+//bind привязывает контекст функции (сейчас его используем)
     
         const textElement = this.cardElement.querySelector(".elements__text");
         textElement.textContent = name;
     
         const likeElement = this.cardElement.querySelector(".elements__like");
-        likeElement.addEventListener("click", function (event) {
-            event.target.classList.toggle("elements__like_active");
-        });
+        likeElement.addEventListener("click", this.handleLikeElementClick);
     
         const trashElement = this.cardElement.querySelector(".elements__trash");
-        trashElement.addEventListener("click", function (event) {
-            event.target.parentNode.remove();
-        }); 
+        trashElement.addEventListener("click", this.handleTrashElementClick);
     }
-}
 
-function createCard (name, link) {
-    const newCard = template.cloneNode(true);
-
-    const photoElement = newCard.querySelector(".elements__photo-element");
-    photoElement.src = link;
-    photoElement.alt = name;
-    photoElement.addEventListener("click", function () {
-        popupPhoto.src = photoElement.src;
+    handlePhotoElementClick() {
+        popupPhoto.src = this.photoElement.src;
         popupPhoto.alt = name;
         popupPhotoName.textContent = name;
-        openPopup(popupPhotoElement);
-    });
+        openPopup(popupPhotoElement); 
+    } 
 
-    const textElement = newCard.querySelector(".elements__text");
-    textElement.textContent = name;
-
-    const likeElement = newCard.querySelector(".elements__like");
-    likeElement.addEventListener("click", function (event) {
+    handleLikeElementClick(event) {
         event.target.classList.toggle("elements__like_active");
-    }); 
+    }
 
-    const trashElement = newCard.querySelector(".elements__trash");
-    trashElement.addEventListener("click", function (event) {
+    handleTrashElementClick(event) {
         event.target.parentNode.remove();
-    }); 
- 
-    return newCard;
+    }
+
 }
+
 
 function createElement(list, newCard) {
     list.prepend(newCard);
