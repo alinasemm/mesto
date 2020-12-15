@@ -2,7 +2,6 @@ const popupPhotoElement = document.querySelector("#popup-preview");
 const popupPhoto = document.querySelector("#popup-preview-photo");
 const popupPhotoName = document.querySelector("#popup-preview-name");
 
-const template = document.querySelector("#template").content;
 const container = document.querySelector(".elements");
 
 const popupProfile = document.querySelector("#popup-profile");
@@ -28,50 +27,72 @@ const submitElementsButton = document.querySelector("#popup__submit-button_eleme
 /*
 
 План:
-1) Вынести каждый из 3-х обработчиков в отдельный метод
+1) Вынести каждый из 3-х обработчиков в отдельный метод +
 2) Конструктор должен принимать данные карточки и селектор её template-элемента
 3) Перенести функции, которые относятся к карточке в класс
+4) 
 */
 
-
-
-
-class Card {
-    constructor(name, link) {
-        this.cardElement = template.cloneNode(true);
-
-        this.photoElement = this.cardElement.querySelector(".elements__photo-element");
-        this.photoElement.src = link;
-        this.photoElement.alt = name;
-        this.photoElement.addEventListener("click", this.handlePhotoElementClick.bind(this));
 //стрелочная функция не может терять this, поэтому используем ее
 //bind привязывает контекст функции (сейчас его используем)
-    
-        const textElement = this.cardElement.querySelector(".elements__text");
-        textElement.textContent = name;
-    
-        const likeElement = this.cardElement.querySelector(".elements__like");
-        likeElement.addEventListener("click", this.handleLikeElementClick);
-    
-        const trashElement = this.cardElement.querySelector(".elements__trash");
-        trashElement.addEventListener("click", this.handleTrashElementClick);
+
+class Card {
+    constructor(name, link, templateSelector) {
+        this.name = name;
+        this.link = link;
+        this.templateSelector = templateSelector;
     }
 
-    handlePhotoElementClick() {
+    _getTemplate() {
+        const template = document.querySelector(this.templateSelector).content;
+        return template.cloneNode(true);
+    }
+
+    _handlePhotoElementClick() {
         popupPhoto.src = this.photoElement.src;
-        popupPhoto.alt = name;
-        popupPhotoName.textContent = name;
+        popupPhoto.alt = this.name;
+        popupPhotoName.textContent = this.name;
         openPopup(popupPhotoElement); 
     } 
 
-    handleLikeElementClick(event) {
+    _handleLikeElementClick(event) {
         event.target.classList.toggle("elements__like_active");
     }
 
-    handleTrashElementClick(event) {
+    _handleTrashElementClick(event) {
         event.target.parentNode.remove();
     }
 
+    _preparePhotoElement() {
+        this.photoElement = this.cardElement.querySelector(".elements__photo-element");
+        this.photoElement.src = this.link;
+        this.photoElement.alt = this.name;
+        this.photoElement.addEventListener("click", this._handlePhotoElementClick.bind(this));
+    }
+
+    _prepareTextElement() {
+        const textElement = this.cardElement.querySelector(".elements__text");
+        textElement.textContent = this.name;  
+    }
+
+    _prepareLikeElement() {
+        const likeElement = this.cardElement.querySelector(".elements__like");
+        likeElement.addEventListener("click", this._handleLikeElementClick); 
+    }
+
+    _prepareTrashElement() {
+        const trashElement = this.cardElement.querySelector(".elements__trash");
+        trashElement.addEventListener("click", this._handleTrashElementClick);
+    }
+
+    generateCard() {
+        this.cardElement = this._getTemplate();
+        this._preparePhotoElement();
+        this._prepareTextElement();
+        this._prepareLikeElement();
+        this._prepareTrashElement();
+        return this.cardElement;
+    }
 }
 
 
@@ -137,8 +158,8 @@ addElementButton.addEventListener("click", function () {
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const card = new Card(placeField.value, linkField.value);
-    createElement(container, card.cardElement);
+    const card = new Card(placeField.value, linkField.value, "#template");
+    createElement(container, card.generateCard());
 
     // createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
@@ -184,8 +205,8 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    const card = new Card(elementData.name, elementData.link);
-    createElement(container, card.cardElement);
+    const card = new Card(elementData.name, elementData.link, "#template");
+    createElement(container, card.generateCard());
 });
 
 
