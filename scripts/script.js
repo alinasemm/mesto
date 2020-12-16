@@ -24,18 +24,6 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-/*
-
-План:
-1) Вынести каждый из 3-х обработчиков в отдельный метод +
-2) Конструктор должен принимать данные карточки и селектор её template-элемента
-3) Перенести функции, которые относятся к карточке в класс
-4) 
-*/
-
-//стрелочная функция не может терять this, поэтому используем ее
-//bind привязывает контекст функции (сейчас его используем)
-
 class Card {
     constructor(name, link, templateSelector) {
         this.name = name;
