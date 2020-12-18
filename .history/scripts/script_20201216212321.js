@@ -24,22 +24,6 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profileFormValidator = new FormValidator(profileForm, {
-    inputSelector: ".popup__field",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    inputErrorClass: "popup__field_error"
-});
-profileFormValidator.enableValidation();
-
-const elementsFormValidator = new FormValidator(elementsForm, {
-    inputSelector: ".popup__field",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    inputErrorClass: "popup__field_error"
-});
-elementsFormValidator.enableValidation();
-
 class Card {
     constructor(name, link, templateSelector) {
         this.name = name;
@@ -145,7 +129,7 @@ editProfileButton.addEventListener("click", function () {
 
     const inputs = [nameField, jobField];
     const errorSpans = [nameFieldError, jobFieldError];
-    profileFormValidator.resetForm(inputs, errorSpans, submitProfileButton);
+    resetForm(inputs, errorSpans, "popup__field_error", submitProfileButton, "popup__submit-button_inactive");
     
     openPopup(popupProfile);
 });

@@ -23,14 +23,14 @@ class FormValidator {
         this.inputErrorClass = options.inputErrorClass;
     }
 
-    _makeButtonInactive() {
-        this.submitButton.classList.add(this.inactiveButtonClass);
-        this.submitButton.setAttribute("disabled", "true");
+    _makeButtonInactive(button) {
+        button.classList.add(this.inactiveButtonClass);
+        button.setAttribute("disabled", "true");
     }
 
-    _makeButtonActive() {
-        this.submitButton.classList.remove(this.inactiveButtonClass);
-        this.submitButton.removeAttribute("disabled");
+    _makeButtonActive(button) {
+        button.classList.remove(this.inactiveButtonClass);
+        button.removeAttribute("disabled");
     }
 
     _toggleButtonState(inputs) {
@@ -59,7 +59,7 @@ class FormValidator {
         }
     }
 
-    _setEventListeners () {
+    _setEventListeners (submitButton) {
         const inputs = this.form.querySelectorAll(this.inputSelector);
     
         const inputsArr = Array.from(inputs)
@@ -67,14 +67,14 @@ class FormValidator {
             const errorSpan = this.form.querySelector(`#${input.id}-error`);
             input.addEventListener("input", () => {
                 this._checkInputValidity(input, errorSpan);
-                this._toggleButtonState(inputsArr);
+                this._toggleButtonState(inputsArr, submitButton);
             });
         });
     }
 
     _handleFormSubmit(event) {
         event.preventDefault();
-        this._makeButtonInactive();
+        this._makeButtonInactive(submitButton);
     }
 
     _hasInvalidInput(inputs) {
@@ -86,15 +86,15 @@ class FormValidator {
 
     enableValidation() {
         this.form.addEventListener("submit", this._handleFormSubmit.bind(this));
-        this._setEventListeners();
+        this._setEventListeners(submitButton);
     }
 
-    resetForm (inputs, errorSpans) {
+    resetForm (inputs, errorSpans, button) {
         inputs.forEach((input, i) => {
             const errorSpan = errorSpans[i];
             this._hideError(input, errorSpan);
         });
     
-        this._makeButtonInactive();
+        this._makeButtonInactive(button);
     }
 }

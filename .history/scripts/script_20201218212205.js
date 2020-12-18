@@ -145,7 +145,7 @@ editProfileButton.addEventListener("click", function () {
 
     const inputs = [nameField, jobField];
     const errorSpans = [nameFieldError, jobFieldError];
-    profileFormValidator.resetForm(inputs, errorSpans, submitProfileButton);
+    resetForm(inputs, errorSpans, "popup__field_error", submitProfileButton, "popup__submit-button_inactive");
     
     openPopup(popupProfile);
 });
