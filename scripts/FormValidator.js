@@ -1,43 +1,27 @@
-/*
-
-Старый план:
-1) Вынести каждый из 3-х обработчиков в отдельный метод +
-2) Конструктор должен принимать данные карточки и селектор её template-элемента
-3) Перенести функции, которые относятся к карточке в класс
-4) 
-*/
-
-//стрелочная функция не может терять this, поэтому используем ее
-//bind привязывает контекст функции (сейчас его используем)
-
-// Новый план:
-//1) resetForm - публичный метод
-//2) 
-
 class FormValidator {
-    constructor(form, options) {
+    constructor(options, form) {
         this.form = form;
+        this.submitButton = this.form.querySelector(options.submitButtonSelector);
         this.inputSelector = options.inputSelector;
-        this.submitButtonSelector = options.submitButtonSelector;
         this.inactiveButtonClass = options.inactiveButtonClass;
         this.inputErrorClass = options.inputErrorClass;
     }
 
-    _makeButtonInactive(button) {
-        button.classList.add(this.inactiveButtonClass);
-        button.setAttribute("disabled", "true");
+    _makeButtonInactive() {
+        this.submitButton.classList.add(this.inactiveButtonClass);
+        this.submitButton.setAttribute("disabled", "true");
     }
 
-    _makeButtonActive(button) {
-        button.classList.remove(this.inactiveButtonClass);
-        button.removeAttribute("disabled");
+    _makeButtonActive() {
+        this.submitButton.classList.remove(this.inactiveButtonClass);
+        this.submitButton.removeAttribute("disabled");
     }
 
-    _toggleButtonState(inputs, submitButton) {
-        if (hasInvalidInput(inputs)) {
-            this._makeButtonInactive(submitButton);
+    _toggleButtonState(inputs) {
+        if (this._hasInvalidInput(inputs)) {
+            this._makeButtonInactive();
         } else {
-            this._makeButtonActive(submitButton);
+            this._makeButtonActive();
         } 
     }
 
@@ -59,7 +43,7 @@ class FormValidator {
         }
     }
 
-    _setEventListeners (submitButton) {
+    _setEventListeners () {
         const inputs = this.form.querySelectorAll(this.inputSelector);
     
         const inputsArr = Array.from(inputs)
@@ -67,14 +51,14 @@ class FormValidator {
             const errorSpan = this.form.querySelector(`#${input.id}-error`);
             input.addEventListener("input", () => {
                 this._checkInputValidity(input, errorSpan);
-                this._toggleButtonState(inputsArr, submitButton);
+                this._toggleButtonState(inputsArr);
             });
         });
     }
 
     _handleFormSubmit(event) {
         event.preventDefault();
-        this._makeButtonInactive(submitButton);
+        this._makeButtonInactive();
     }
 
     _hasInvalidInput(inputs) {
@@ -85,17 +69,16 @@ class FormValidator {
 
 
     enableValidation() {
-        const submitButton = this.form.querySelector(this.submitButtonSelector);
         this.form.addEventListener("submit", this._handleFormSubmit.bind(this));
-        this._setEventListeners(submitButton);
+        this._setEventListeners();
     }
 
-    resetForm (inputs, errorSpans, button) {
+    resetForm (inputs, errorSpans) {
         inputs.forEach((input, i) => {
             const errorSpan = errorSpans[i];
             this._hideError(input, errorSpan);
         });
     
-        this._makeButtonInactive(button);
+        this._makeButtonInactive();
     }
 }

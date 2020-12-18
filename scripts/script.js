@@ -24,20 +24,20 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profileFormValidator = new FormValidator(profileForm, {
+const profileFormValidator = new FormValidator({
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
     inactiveButtonClass: "popup__submit-button_inactive",
     inputErrorClass: "popup__field_error"
-});
+}, profileForm);
 profileFormValidator.enableValidation();
 
-const elementsFormValidator = new FormValidator(elementsForm, {
+const elementsFormValidator = new FormValidator({
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
     inactiveButtonClass: "popup__submit-button_inactive",
     inputErrorClass: "popup__field_error"
-});
+}, elementsForm);
 elementsFormValidator.enableValidation();
 
 class Card {
@@ -212,5 +212,4 @@ initialElements.forEach(function(elementData) {
     const card = new Card(elementData.name, elementData.link, "#template");
     createElement(container, card.generateCard());
 });
-
 
