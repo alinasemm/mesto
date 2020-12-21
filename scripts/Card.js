@@ -1,11 +1,3 @@
-/*
-1 - определили задачу
-2 - нашли варианты решения задачи
-3 - выбрали вариант решения
-4 - сделали выбранный вариант
-5 - протестировали
-6 - если работает - закончили, если нет - назад к 1му пункту
-*/
 export default class Card {
   constructor(name, link, templateSelector, onPhotoElementClick) {
       this.name = name;
