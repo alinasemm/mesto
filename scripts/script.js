@@ -1,6 +1,8 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 const popupPhotoElement = document.querySelector("#popup-preview");
 const popupPhoto = document.querySelector("#popup-preview-photo");
-const popupPhotoName = document.querySelector("#popup-preview-name");
 
 const container = document.querySelector(".elements");
 
@@ -103,7 +105,7 @@ addElementButton.addEventListener("click", function () {
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const card = new Card(placeField.value, linkField.value, "#template");
+    const card = new Card(placeField.value, linkField.value, "#template", popupPhoto, openPopup, popupPhotoElement);
     createElement(container, card.generateCard());
 
     // createElement(container, createCard(placeField.value, linkField.value));
@@ -150,7 +152,7 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    const card = new Card(elementData.name, elementData.link, "#template");
+    const card = new Card(elementData.name, elementData.link, "#template", popupPhoto, openPopup, popupPhotoElement);
     createElement(container, card.generateCard());
 });
 

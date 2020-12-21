@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
     constructor(options, form) {
         this.form = form;
         this.submitButton = this.form.querySelector(options.submitButtonSelector);
@@ -66,7 +66,6 @@ class FormValidator {
             return !input.validity.valid;
         });
     }
-
 
     enableValidation() {
         this.form.addEventListener("submit", this._handleFormSubmit.bind(this));

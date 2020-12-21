@@ -1,8 +1,21 @@
-class Card {
-  constructor(name, link, templateSelector) {
+/*
+1 - определили задачу
+2 - нашли варианты решения задачи
+3 - выбрали вариант решения
+4 - сделали выбранный вариант
+5 - протестировали
+6 - если работает - закончили, если нет - назад к 1му пункту
+*/
+
+const popupPhotoName = document.querySelector("#popup-preview-name");
+export default class Card {
+  constructor(name, link, templateSelector, popupPhoto, openPopup, popupPhotoElement) {
       this.name = name;
       this.link = link;
       this.templateSelector = templateSelector;
+      this.popupPhoto = popupPhoto;
+      this.openPopup = openPopup;
+      this.popupPhotoElement = popupPhotoElement;
   }
 
   _getTemplate() {
@@ -11,10 +24,10 @@ class Card {
   }
 
   _handlePhotoElementClick() {
-      popupPhoto.src = this.photoElement.src;
-      popupPhoto.alt = this.name;
+      this.popupPhoto.src = this.photoElement.src;
+      this.popupPhoto.alt = this.name;
       popupPhotoName.textContent = this.name;
-      openPopup(popupPhotoElement); 
+      this.openPopup(this.popupPhotoElement); 
   } 
 
   _handleLikeElementClick(event) {
