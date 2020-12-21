@@ -6,16 +6,12 @@
 5 - протестировали
 6 - если работает - закончили, если нет - назад к 1му пункту
 */
-
-const popupPhotoName = document.querySelector("#popup-preview-name");
 export default class Card {
-  constructor(name, link, templateSelector, popupPhoto, openPopup, popupPhotoElement) {
+  constructor(name, link, templateSelector, onPhotoElementClick) {
       this.name = name;
       this.link = link;
       this.templateSelector = templateSelector;
-      this.popupPhoto = popupPhoto;
-      this.openPopup = openPopup;
-      this.popupPhotoElement = popupPhotoElement;
+      this.onPhotoElementClick = onPhotoElementClick;
   }
 
   _getTemplate() {
@@ -24,10 +20,7 @@ export default class Card {
   }
 
   _handlePhotoElementClick() {
-      this.popupPhoto.src = this.photoElement.src;
-      this.popupPhoto.alt = this.name;
-      popupPhotoName.textContent = this.name;
-      this.openPopup(this.popupPhotoElement); 
+      this.onPhotoElementClick(this.name, this.link);
   } 
 
   _handleLikeElementClick(event) {

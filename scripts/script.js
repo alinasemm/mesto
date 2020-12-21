@@ -2,6 +2,7 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
 const popupPhotoElement = document.querySelector("#popup-preview");
+const popupPhotoName = document.querySelector("#popup-preview-name");
 const popupPhoto = document.querySelector("#popup-preview-photo");
 
 const container = document.querySelector(".elements");
@@ -82,6 +83,14 @@ function addProfileInfoToPage () {
     profileJob.textContent = jobField.value;
 }
 
+function onPhotoElementClick (name, src) {
+    popupPhoto.src = src;
+    popupPhoto.alt = name;
+    popupPhotoName.textContent = name;
+
+    openPopup(popupPhotoElement); 
+}
+
 
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
@@ -105,10 +114,9 @@ addElementButton.addEventListener("click", function () {
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const card = new Card(placeField.value, linkField.value, "#template", popupPhoto, openPopup, popupPhotoElement);
+    const card = new Card(placeField.value, linkField.value, "#template", onPhotoElementClick);
     createElement(container, card.generateCard());
 
-    // createElement(container, createCard(placeField.value, linkField.value));
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
@@ -152,7 +160,7 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    const card = new Card(elementData.name, elementData.link, "#template", popupPhoto, openPopup, popupPhotoElement);
+    const card = new Card(elementData.name, elementData.link, "#template", onPhotoElementClick);
     createElement(container, card.generateCard());
 });
 
