@@ -109,6 +109,11 @@ profileForm.addEventListener("submit", function (event) {
 
 
 addElementButton.addEventListener("click", function () {
+    const inputs = [placeField, linkField];
+    const errorSpans = [placeFieldError, linkFieldError];
+    elementsFormValidator.resetForm(inputs, errorSpans, submitElementsButton);
+    cleanInputs(inputs);
+
     openPopup(popupElements);
 });
 elementsForm.addEventListener("submit", function (event) {
