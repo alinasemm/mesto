@@ -27,20 +27,24 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profileFormValidator = new FormValidator({
+const profileValidationConfig = {
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
     inactiveButtonClass: "popup__submit-button_inactive",
     inputErrorClass: "popup__field_error"
-}, profileForm);
+}
+
+const profileFormValidator = new FormValidator(profileValidationConfig, profileForm);
 profileFormValidator.enableValidation();
 
-const elementsFormValidator = new FormValidator({
+const elementsValidationConfig = {
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
     inactiveButtonClass: "popup__submit-button_inactive",
     inputErrorClass: "popup__field_error"
-}, elementsForm);
+}
+
+const elementsFormValidator = new FormValidator(elementsValidationConfig, elementsForm);
 elementsFormValidator.enableValidation();
 
 
