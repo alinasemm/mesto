@@ -11,6 +11,19 @@ export default class Card {
       return template.cloneNode(true);
   }
 
+  _findElements() {
+    this.photoElement = this.cardElement.querySelector(".elements__photo-element");
+    this.textElement = this.cardElement.querySelector(".elements__text");
+    this.likeElement = this.cardElement.querySelector(".elements__like");
+    this.trashElement = this.cardElement.querySelector(".elements__trash");
+  }
+
+  _setEventListeners() {
+    this.photoElement.addEventListener("click", this._handlePhotoElementClick.bind(this));
+    this.likeElement.addEventListener("click", this._handleLikeElementClick); 
+    this.trashElement.addEventListener("click", this._handleTrashElementClick);
+  }
+
   _handlePhotoElementClick() {
       this.onPhotoElementClick(this.name, this.link);
   } 
@@ -23,34 +36,21 @@ export default class Card {
       event.target.parentNode.remove();
   }
 
-  _preparePhotoElement() {
-      this.photoElement = this.cardElement.querySelector(".elements__photo-element");
+  _definePhotoElementAttributes() {
       this.photoElement.src = this.link;
       this.photoElement.alt = this.name;
-      this.photoElement.addEventListener("click", this._handlePhotoElementClick.bind(this));
   }
 
-  _prepareTextElement() {
-      const textElement = this.cardElement.querySelector(".elements__text");
-      textElement.textContent = this.name;  
-  }
-
-  _prepareLikeElement() {
-      const likeElement = this.cardElement.querySelector(".elements__like");
-      likeElement.addEventListener("click", this._handleLikeElementClick); 
-  }
-
-  _prepareTrashElement() {
-      const trashElement = this.cardElement.querySelector(".elements__trash");
-      trashElement.addEventListener("click", this._handleTrashElementClick);
+  _addTextToTextElement() {
+      this.textElement.textContent = this.name;  
   }
 
   generateCard() {
       this.cardElement = this._getTemplate();
-      this._preparePhotoElement();
-      this._prepareTextElement();
-      this._prepareLikeElement();
-      this._prepareTrashElement();
+      this._findElements();
+      this._setEventListeners();
+      this._definePhotoElementAttributes();
+      this._addTextToTextElement();
       return this.cardElement;
   }
 }
