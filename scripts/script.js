@@ -95,6 +95,10 @@ function onPhotoElementClick (name, src) {
     openPopup(popupPhotoElement); 
 }
 
+function createCard(name, link, templateSelector, onPhotoElementClick) {
+    const card = new Card(name, link, templateSelector, onPhotoElementClick);
+    createElement(container, card.generateCard());
+}
 
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
@@ -122,10 +126,7 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-
-    const card = new Card(placeField.value, linkField.value, "#template", onPhotoElementClick);
-    createElement(container, card.generateCard());
-
+    createCard(placeField.value, linkField.value, "#template", onPhotoElementClick)
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
@@ -169,7 +170,6 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    const card = new Card(elementData.name, elementData.link, "#template", onPhotoElementClick);
-    createElement(container, card.generateCard());
+    createCard(elementData.name, elementData.link, "#template", onPhotoElementClick);
 });
 
