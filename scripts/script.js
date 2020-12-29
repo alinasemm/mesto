@@ -48,7 +48,7 @@ const elementsFormValidator = new FormValidator(elementsValidationConfig, elemen
 elementsFormValidator.enableValidation();
 
 
-function createElement(list, newCard) {
+function addCard(list, newCard) {
     list.prepend(newCard);
 }
 
@@ -96,8 +96,7 @@ function onPhotoElementClick (name, src) {
 }
 
 function createCard(name, link, templateSelector, onPhotoElementClick) {
-    const card = new Card(name, link, templateSelector, onPhotoElementClick);
-    createElement(container, card.generateCard());
+    return new Card(name, link, templateSelector, onPhotoElementClick).generateCard();
 }
 
 editProfileButton.addEventListener("click", function () {
@@ -126,7 +125,7 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    createCard(placeField.value, linkField.value, "#template", onPhotoElementClick)
+    addCard(container, createCard(placeField.value, linkField.value, "#template", onPhotoElementClick));
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
@@ -170,6 +169,6 @@ const initialElements = [
 ];
 
 initialElements.forEach(function(elementData) {
-    createCard(elementData.name, elementData.link, "#template", onPhotoElementClick);
+    addCard(container, createCard(elementData.name, elementData.link, "#template", onPhotoElementClick));
 });
 
