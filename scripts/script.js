@@ -28,24 +28,17 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profileValidationConfig = {
+const ValidationConfig = {
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
     inactiveButtonClass: "popup__submit-button_inactive",
     inputErrorClass: "popup__field_error"
 }
 
-const profileFormValidator = new FormValidator(profileValidationConfig, profileForm);
+const profileFormValidator = new FormValidator(ValidationConfig, profileForm);
 profileFormValidator.enableValidation();
 
-const elementsValidationConfig = {
-    inputSelector: ".popup__field",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    inputErrorClass: "popup__field_error"
-}
-
-const elementsFormValidator = new FormValidator(elementsValidationConfig, elementsForm);
+const elementsFormValidator = new FormValidator(ValidationConfig, elementsForm);
 elementsFormValidator.enableValidation();
 
 
@@ -56,9 +49,7 @@ function addCard(list, newCard) {
 function closePopupOnEscape (event) {
     if (event.key === "Escape") {
         const openedPopup = document.querySelector(".popup_opened");
-        if (openedPopup) {
-            closePopup(openedPopup);
-        }
+        closePopup(openedPopup);
     }
 }
 
