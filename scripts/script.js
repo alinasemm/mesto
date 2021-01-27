@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 
 const popupPhotoElement = document.querySelector("#popup-preview");
 const popupPhotoName = document.querySelector("#popup-preview-name");
@@ -95,10 +96,6 @@ function onPhotoElementClick (name, src) {
     openPopup(popupPhotoElement); 
 }
 
-function createCard(name, link, templateSelector, onPhotoElementClick) {
-    return new Card(name, link, templateSelector, onPhotoElementClick).generateCard();
-}
-
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
 
@@ -125,7 +122,11 @@ addElementButton.addEventListener("click", function () {
 });
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    addCard(container, createCard(placeField.value, linkField.value, "#template", onPhotoElementClick));
+
+    const card = new Card(placeField.value, linkField.value, "#template", onPhotoElementClick);
+    const cardElement = card.generateCard();
+    cardsList.addItem(cardElement);
+    
     closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
@@ -168,7 +169,14 @@ const initialElements = [
     }
 ];
 
-initialElements.forEach(function(elementData) {
-    addCard(container, createCard(elementData.name, elementData.link, "#template", onPhotoElementClick));
-});
+const cardsList = new Section ({
+    items: initialElements,
+    renderer: (elementData) => {
+        const card = new Card(elementData.name, elementData.link, "#template", onPhotoElementClick);
+        const cardElement = card.generateCard();
+        cardsList.addItem(cardElement);
+    }
+}, ".elements");
+
+cardsList.renderItems();
 
