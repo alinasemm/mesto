@@ -1,6 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
+import Popup from "./Popup.js";
 
 const popupPhotoElement = document.querySelector("#popup-preview");
 const popupPhotoName = document.querySelector("#popup-preview-name");
@@ -28,6 +29,10 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
+const profilePopupClass = new Popup("#popup-profile");
+const elementsPopupClass = new Popup("#popup-elements");
+const photoPopupClass = new Popup("#popup-preview");
+
 const ValidationConfig = {
     inputSelector: ".popup__field",
     submitButtonSelector: ".popup__submit-button",
@@ -51,11 +56,6 @@ function closePopupOnEscape (event) {
         const openedPopup = document.querySelector(".popup_opened");
         closePopup(openedPopup);
     }
-}
-
-function openPopup (popup) {
-    popup.addEventListener("keydown", closePopupOnEscape);
-    popup.classList.add("popup_opened");
 }
 
 function closePopup (popup) {
@@ -84,7 +84,7 @@ function onPhotoElementClick (name, src) {
     popupPhoto.alt = name;
     popupPhotoName.textContent = name;
 
-    openPopup(popupPhotoElement); 
+    photoPopupClass.open();
 }
 
 editProfileButton.addEventListener("click", function () {
@@ -94,11 +94,13 @@ editProfileButton.addEventListener("click", function () {
     const errorSpans = [nameFieldError, jobFieldError];
     profileFormValidator.resetForm(inputs, errorSpans, submitProfileButton);
     
-    openPopup(popupProfile);
+    profilePopupClass.open();
 });
+
 profileForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    closePopup(popupProfile);
+    profilePopupClass.close();
+    // closePopup(popupProfile);
     addProfileInfoToPage();
 }); 
 
@@ -109,16 +111,17 @@ addElementButton.addEventListener("click", function () {
     elementsFormValidator.resetForm(inputs, errorSpans, submitElementsButton);
     cleanInputs(inputs);
 
-    openPopup(popupElements);
+    elementsPopupClass.open();
 });
+
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const card = new Card(placeField.value, linkField.value, "#template", onPhotoElementClick);
     const cardElement = card.generateCard();
     cardsList.addItem(cardElement);
-    
-    closePopup(popupElements);
+    elementsPopupClass.close();
+    // closePopup(popupElements);
     cleanInputs([placeField, linkField]);
 });
 
