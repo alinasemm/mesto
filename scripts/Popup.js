@@ -1,9 +1,7 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._popupOverlay = this._popup.querySelector('.popup');
     this._crossIcon = this._popup.querySelector('.popup__close-icon');
-    this._handleEscClose();
   }
 
   open() {
@@ -12,17 +10,23 @@ export default class Popup {
   
   close() {
     this._popup.classList.remove("popup_opened");
-    this._popup.removeEventListener("keydown", this._handleEscClose);
   }
+
   _handleEscClose(event) {
     if (event.key === "Escape") {
+      this.close();
+    }
+  }
+  
+  _handleClickOnOverlay (event) {
+    if (event.target.classList.contains('popup')) {
       this.close();
     }
   }
 
   setEventListeners() {
     this._crossIcon.addEventListener("click", () => this.close());
-    this._popupOverlay.addEventListener("click", () => this.close();
+    this._popup.addEventListener("click", (event) => this._handleClickOnOverlay(event));
     this._popup.addEventListener("keydown", (event) => this._handleEscClose(event));  
   }
 }
