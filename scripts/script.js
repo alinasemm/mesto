@@ -2,10 +2,7 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import Popup from "./Popup.js";
-
-const popupPhotoElement = document.querySelector("#popup-preview");
-const popupPhotoName = document.querySelector("#popup-preview-name");
-const popupPhoto = document.querySelector("#popup-preview-photo");
+import PopupWithImage from "./PopupWithImage.js";
 
 const container = document.querySelector(".elements");
 
@@ -35,7 +32,7 @@ profilePopupClass.setEventListeners();
 const elementsPopupClass = new Popup("#popup-elements");
 elementsPopupClass.setEventListeners();
 
-const photoPopupClass = new Popup("#popup-preview");
+const photoPopupClass = new PopupWithImage("#popup-preview");
 photoPopupClass.setEventListeners();
 
 const ValidationConfig = {
@@ -72,14 +69,6 @@ function addProfileInfoToPage () {
     profileJob.textContent = jobField.value;
 }
 
-function onPhotoElementClick (name, src) {
-    popupPhoto.src = src;
-    popupPhoto.alt = name;
-    popupPhotoName.textContent = name;
-
-    photoPopupClass.open();
-}
-
 editProfileButton.addEventListener("click", function () {
     addProfileInfoToFields();
 
@@ -109,7 +98,7 @@ addElementButton.addEventListener("click", function () {
 elementsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const card = new Card(placeField.value, linkField.value, "#template", onPhotoElementClick);
+    const card = new Card(placeField.value, linkField.value, "#template", () => photoPopupClass.open(placeField.value, linkField.value));
     const cardElement = card.generateCard();
     cardsList.addItem(cardElement);
     elementsPopupClass.close();
@@ -147,7 +136,7 @@ const initialElements = [
 const cardsList = new Section ({
     items: initialElements,
     renderer: (elementData) => {
-        const card = new Card(elementData.name, elementData.link, "#template", onPhotoElementClick);
+        const card = new Card(elementData.name, elementData.link, "#template", () => photoPopupClass.open(elementData.name, elementData.link));
         const cardElement = card.generateCard();
         cardsList.addItem(cardElement);
     }
