@@ -27,14 +27,13 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profilePopupClass = new PopupWithForm("#popup-profile", (name, job) => {
-  console.log('submit', {name, job});
+const profilePopupClass = new PopupWithForm("#popup-profile", ({ name, job }) => {
   profileName.textContent = name;
   profileJob.textContent = job;
 });
 profilePopupClass.setEventListeners();
 
-const elementsPopupClass = new PopupWithForm("#popup-elements", (place, link) => {
+const elementsPopupClass = new PopupWithForm("#popup-elements", ({ place, link }) => {
     const card = new Card(place, link, "#template", () => {
       photoPopupClass.open(place, link);
     });
@@ -46,17 +45,17 @@ elementsPopupClass.setEventListeners();
 const photoPopupClass = new PopupWithImage("#popup-preview");
 photoPopupClass.setEventListeners();
 
-const ValidationConfig = {
+const validationConfig = {
   inputSelector: ".popup__field",
   submitButtonSelector: ".popup__submit-button",
   inactiveButtonClass: "popup__submit-button_inactive",
   inputErrorClass: "popup__field_error"
 }
 
-const profileFormValidator = new FormValidator(ValidationConfig, profileForm);
+const profileFormValidator = new FormValidator(validationConfig, profileForm);
 profileFormValidator.enableValidation();
 
-const elementsFormValidator = new FormValidator(ValidationConfig, elementsForm);
+const elementsFormValidator = new FormValidator(validationConfig, elementsForm);
 elementsFormValidator.enableValidation();
 
 
