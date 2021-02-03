@@ -3,6 +3,7 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
 
 const container = document.querySelector(".elements");
 
@@ -26,20 +27,30 @@ const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-const profilePopupClass = new Popup("#popup-profile");
+const profilePopupClass = new PopupWithForm("#popup-profile", (name, job) => {
+  console.log('submit', {name, job});
+  profileName.textContent = name;
+  profileJob.textContent = job;
+});
 profilePopupClass.setEventListeners();
 
-const elementsPopupClass = new Popup("#popup-elements");
+const elementsPopupClass = new PopupWithForm("#popup-elements", (place, link) => {
+    const card = new Card(place, link, "#template", () => {
+      photoPopupClass.open(place, link);
+    });
+    const cardElement = card.generateCard();
+    cardsList.addItem(cardElement);
+});
 elementsPopupClass.setEventListeners();
 
 const photoPopupClass = new PopupWithImage("#popup-preview");
 photoPopupClass.setEventListeners();
 
 const ValidationConfig = {
-    inputSelector: ".popup__field",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    inputErrorClass: "popup__field_error"
+  inputSelector: ".popup__field",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_inactive",
+  inputErrorClass: "popup__field_error"
 }
 
 const profileFormValidator = new FormValidator(ValidationConfig, profileForm);
@@ -50,59 +61,38 @@ elementsFormValidator.enableValidation();
 
 
 function addCard(list, newCard) {
-    list.prepend(newCard);
+  list.prepend(newCard);
 }
 
 function cleanInputs (inputs) {
-    inputs.forEach(function (input) {
-        input.value = "";
-    });
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
 }
 
 function addProfileInfoToFields () {
-    nameField.value = profileName.textContent
-    jobField.value = profileJob.textContent
-}
-
-function addProfileInfoToPage () {
-    profileName.textContent = nameField.value;
-    profileJob.textContent = jobField.value;
+  nameField.value = profileName.textContent
+  jobField.value = profileJob.textContent
 }
 
 editProfileButton.addEventListener("click", function () {
-    addProfileInfoToFields();
+  addProfileInfoToFields();
 
-    const inputs = [nameField, jobField];
-    const errorSpans = [nameFieldError, jobFieldError];
-    profileFormValidator.resetForm(inputs, errorSpans, submitProfileButton);
-    
-    profilePopupClass.open();
+  const inputs = [nameField, jobField];
+  const errorSpans = [nameFieldError, jobFieldError];
+  profileFormValidator.resetForm(inputs, errorSpans, submitProfileButton);
+  
+  profilePopupClass.open();
 });
-
-profileForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    profilePopupClass.close();
-    addProfileInfoToPage();
-}); 
 
 
 addElementButton.addEventListener("click", function () {
-    const inputs = [placeField, linkField];
-    const errorSpans = [placeFieldError, linkFieldError];
-    elementsFormValidator.resetForm(inputs, errorSpans, submitElementsButton);
-    cleanInputs(inputs);
+  const inputs = [placeField, linkField];
+  const errorSpans = [placeFieldError, linkFieldError];
+  elementsFormValidator.resetForm(inputs, errorSpans, submitElementsButton);
+  cleanInputs(inputs);
 
-    elementsPopupClass.open();
-});
-
-elementsForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const card = new Card(placeField.value, linkField.value, "#template", () => photoPopupClass.open(placeField.value, linkField.value));
-    const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
-    elementsPopupClass.close();
-    cleanInputs([placeField, linkField]);
+  elementsPopupClass.open();
 });
 
 
@@ -134,12 +124,12 @@ const initialElements = [
 ];
 
 const cardsList = new Section ({
-    items: initialElements,
-    renderer: (elementData) => {
-        const card = new Card(elementData.name, elementData.link, "#template", () => photoPopupClass.open(elementData.name, elementData.link));
-        const cardElement = card.generateCard();
-        cardsList.addItem(cardElement);
-    }
+  items: initialElements,
+  renderer: (elementData) => {
+    const card = new Card(elementData.name, elementData.link, "#template", () => photoPopupClass.open(elementData.name, elementData.link));
+    const cardElement = card.generateCard();
+    cardsList.addItem(cardElement);
+  }
 }, ".elements");
 
 cardsList.renderItems();
