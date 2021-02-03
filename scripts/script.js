@@ -63,12 +63,6 @@ function addCard(list, newCard) {
   list.prepend(newCard);
 }
 
-function cleanInputs (inputs) {
-  inputs.forEach(function (input) {
-    input.value = "";
-  });
-}
-
 function addProfileInfoToFields () {
   nameField.value = profileName.textContent
   jobField.value = profileJob.textContent
@@ -84,12 +78,11 @@ editProfileButton.addEventListener("click", function () {
   profilePopupClass.open();
 });
 
-
 addElementButton.addEventListener("click", function () {
   const inputs = [placeField, linkField];
   const errorSpans = [placeFieldError, linkFieldError];
   elementsFormValidator.resetForm(inputs, errorSpans, submitElementsButton);
-  cleanInputs(inputs);
+  elementsPopupClass.clearInputs();
 
   elementsPopupClass.open();
 });

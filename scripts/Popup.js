@@ -4,14 +4,6 @@ export default class Popup {
     this._crossIcon = this._popup.querySelector('.popup__close-icon');
   }
 
-  open() {
-    this._popup.classList.add("popup_opened");
-  }
-  
-  close() {
-    this._popup.classList.remove("popup_opened");
-  }
-
   _handleEscClose(event) {
     if (event.key === "Escape") {
       this.close();
@@ -22,6 +14,14 @@ export default class Popup {
     if (event.target.classList.contains('popup')) {
       this.close();
     }
+  }
+
+  open() {
+    this._popup.classList.add("popup_opened");
+  }
+  
+  close() {
+    this._popup.classList.remove("popup_opened");
   }
 
   setEventListeners() {

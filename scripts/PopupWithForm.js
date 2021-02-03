@@ -8,17 +8,6 @@ export default class PopupWithForm extends Popup {
     this._inputs = this._popup.querySelectorAll(".popup__field");
   }
 
-  close() {
-    super.close();
-    this._clearInputs();
-  }
-
-  _clearInputs(inputs) {
-    Array.from(this._inputs).forEach(function (input) {
-      input.value= "";
-    });
-  }
-
   _getInputValues() {
     return Array.from(this._inputs).reduce(function (values, input) {
       values[input.name] = input.value;
@@ -31,6 +20,17 @@ export default class PopupWithForm extends Popup {
     const values = this._getInputValues();
     this._onSubmit(values);
     this.close();
+  }
+
+  close() {
+    super.close();
+    this._clearInputs();
+  }
+
+  clearInputs() {
+    Array.from(this._inputs).forEach(function (input) {
+      input.value= "";
+    });
   }
 
   setEventListeners() {
