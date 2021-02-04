@@ -4,32 +4,28 @@ import Section from "./Section.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
-const container = document.querySelector(".elements");
-
-const popupProfile = document.querySelector("#popup-profile");
-const profileForm = popupProfile.querySelector("#popup-profile-container");
+const profileForm = document.querySelector("#popup-profile-container");
 const nameField = profileForm.querySelector("#popup-profile-name");
 const nameFieldError = profileForm.querySelector("#popup-profile-name-error");
 const jobField = profileForm.querySelector("#popup-profile-job");
 const jobFieldError = profileForm.querySelector("#popup-profile-job-error");
-const profileName = document.querySelector("#profile-name");
-const profileJob = document.querySelector("#profile-job");
 const editProfileButton = document.querySelector("#edit-profile-button");
 const submitProfileButton = document.querySelector("#popup__submit-button");
 
-const popupElements = document.querySelector("#popup-elements");
 const addElementButton = document.querySelector("#add-element-button");
-const elementsForm = popupElements.querySelector("#popup-elements-container");
+const elementsForm = document.querySelector("#popup-elements-container");
 const placeField = elementsForm.querySelector("#popup-elements-place");
 const placeFieldError = elementsForm.querySelector("#popup-elements-place-error");
 const linkField = elementsForm.querySelector("#popup-elements-link");
 const linkFieldError = elementsForm.querySelector("#popup-elements-link-error");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
+const userInfo = new UserInfo({ nameSelector: "#profile-name", jobSelector: "#profile-job" });
+
 const profilePopupClass = new PopupWithForm("#popup-profile", ({ name, job }) => {
-  profileName.textContent = name;
-  profileJob.textContent = job;
+  userInfo.setUserInfo({ name, job });
 });
 profilePopupClass.setEventListeners();
 
@@ -63,13 +59,9 @@ function addCard(list, newCard) {
   list.prepend(newCard);
 }
 
-function addProfileInfoToFields () {
-  nameField.value = profileName.textContent
-  jobField.value = profileJob.textContent
-}
-
 editProfileButton.addEventListener("click", function () {
-  addProfileInfoToFields();
+  const { name, job } = userInfo.getUserInfo();
+  profilePopupClass.setInputValues({ name, job });
 
   const inputs = [nameField, jobField];
   const errorSpans = [nameFieldError, jobFieldError];
