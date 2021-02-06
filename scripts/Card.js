@@ -1,14 +1,14 @@
 export default class Card {
-  constructor(name, link, templateSelector, onPhotoElementClick) {
-      this.name = name;
-      this.link = link;
-      this.templateSelector = templateSelector;
-      this.onPhotoElementClick = onPhotoElementClick;
+  constructor(name, link, templateSelector, handleCardClick) {
+    this.name = name;
+    this.link = link;
+    this.templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
-      const template = document.querySelector(this.templateSelector).content;
-      return template.cloneNode(true);
+    const template = document.querySelector(this.templateSelector).content;
+    return template.cloneNode(true);
   }
 
   _findElements() {
@@ -19,38 +19,34 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this.photoElement.addEventListener("click", this._handlePhotoElementClick.bind(this));
+    this.photoElement.addEventListener("click", this._handleCardClick);
     this.likeElement.addEventListener("click", this._handleLikeElementClick); 
     this.trashElement.addEventListener("click", this._handleTrashElementClick);
   }
 
-  _handlePhotoElementClick() {
-      this.onPhotoElementClick(this.name, this.link);
-  } 
-
   _handleLikeElementClick(event) {
-      event.target.classList.toggle("elements__like_active");
+    event.target.classList.toggle("elements__like_active");
   }
 
   _handleTrashElementClick(event) {
-      event.target.parentNode.remove();
+    event.target.parentNode.remove();
   }
 
   _definePhotoElementAttributes() {
-      this.photoElement.src = this.link;
-      this.photoElement.alt = this.name;
+    this.photoElement.src = this.link;
+    this.photoElement.alt = this.name;
   }
 
   _addTextToTextElement() {
-      this.textElement.textContent = this.name;  
+    this.textElement.textContent = this.name;  
   }
 
   generateCard() {
-      this.cardElement = this._getTemplate();
-      this._findElements();
-      this._setEventListeners();
-      this._definePhotoElementAttributes();
-      this._addTextToTextElement();
-      return this.cardElement;
+    this.cardElement = this._getTemplate();
+    this._findElements();
+    this._setEventListeners();
+    this._definePhotoElementAttributes();
+    this._addTextToTextElement();
+    return this.cardElement;
   }
 }

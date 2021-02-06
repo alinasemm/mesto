@@ -6,12 +6,12 @@ import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
 
+const editProfileButton = document.querySelector("#edit-profile-button");
 const profileForm = document.querySelector("#popup-profile-container");
 const nameField = profileForm.querySelector("#popup-profile-name");
 const nameFieldError = profileForm.querySelector("#popup-profile-name-error");
 const jobField = profileForm.querySelector("#popup-profile-job");
 const jobFieldError = profileForm.querySelector("#popup-profile-job-error");
-const editProfileButton = document.querySelector("#edit-profile-button");
 const submitProfileButton = document.querySelector("#popup__submit-button");
 
 const addElementButton = document.querySelector("#add-element-button");
@@ -53,11 +53,6 @@ profileFormValidator.enableValidation();
 
 const elementsFormValidator = new FormValidator(validationConfig, elementsForm);
 elementsFormValidator.enableValidation();
-
-
-function addCard(list, newCard) {
-  list.prepend(newCard);
-}
 
 editProfileButton.addEventListener("click", function () {
   const { name, job } = userInfo.getUserInfo();
@@ -110,7 +105,9 @@ const initialElements = [
 const cardsList = new Section ({
   items: initialElements,
   renderer: (elementData) => {
-    const card = new Card(elementData.name, elementData.link, "#template", () => photoPopupClass.open(elementData.name, elementData.link));
+    const card = new Card(elementData.name, elementData.link, "#template", () => {
+      photoPopupClass.open(elementData.name, elementData.link);
+    });
     const cardElement = card.generateCard();
     cardsList.addItem(cardElement);
   }
