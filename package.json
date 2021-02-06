@@ -1,0 +1,27 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Это интерактивная страница, где можно завести свой профиль и добавлять туда фото из путешествий.",
+  "main": "scripts/script.js",
+  "scripts": {
+    "build": "rimraf dist && webpack --mode=production",
+    "dev": "webpack serve --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alinasemm/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alinasemm/mesto/issues"
+  },
+  "homepage": "https://github.com/alinasemm/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.21.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
