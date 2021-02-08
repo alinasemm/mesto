@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
 
 module.exports = {
-  entry: './src/scripts/index.js', // точка входа - главный js файл
+  entry: './src/pages/index.js', // точка входа - главный js файл
   output: { // точка выхода - куда положить новый, преобразованный файл (он же бандл - bundle)
     path: path.resolve(__dirname, 'dist'), // destination - назначение пути
     publicPath: '',
