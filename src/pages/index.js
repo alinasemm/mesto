@@ -22,7 +22,11 @@ function createCard(data) {
   cardsList.addItem(cardElement);
 }
 
-const userInfo = new UserInfo({ nameSelector: "#profile-name", jobSelector: "#profile-job" });
+const userInfo = new UserInfo({
+  nameSelector: "#profile-name",
+  jobSelector: "#profile-job",
+  avatarSelector: ".profile__avatar"
+});
 
 const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.setUserInfo(data));
 profilePopup.setEventListeners();
