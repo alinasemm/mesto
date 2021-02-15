@@ -7,8 +7,6 @@ export default class UserInfo {
 
     this._fetchUserInfo()
       .then((data) => {
-        console.log(data);
-
         this.setUserInfo({
           name: data.name,
           job: data.about,
