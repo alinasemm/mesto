@@ -28,7 +28,7 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__avatar"
 });
 
-const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.setUserInfo(data));
+const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.saveUserInfo(data));
 profilePopup.setEventListeners();
 
 const elementsPopup = new PopupWithForm("#popup-elements", createCard);

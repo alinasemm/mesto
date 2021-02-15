@@ -12,7 +12,10 @@ export default class Section {
       }
     })  
     .then(res => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
