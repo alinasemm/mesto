@@ -1,3 +1,4 @@
+import { token, groupId } from "../config";
 import '../pages/index.css';
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -5,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+ 
 
 const editProfileButton = document.querySelector("#edit-profile-button");
 const profileForm = document.querySelector("#popup-profile-container");
@@ -31,7 +33,29 @@ const userInfo = new UserInfo({
 const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.saveUserInfo(data));
 profilePopup.setEventListeners();
 
-const elementsPopup = new PopupWithForm("#popup-elements", createCard);
+const elementsPopup = new PopupWithForm("#popup-elements", ({ name, link }) => {
+  fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })  
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then(createCard)
+    .catch(error => {
+      console.log(error);
+    });
+});
 elementsPopup.setEventListeners();
 
 const photoPopup = new PopupWithImage("#popup-preview");
