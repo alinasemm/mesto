@@ -17,7 +17,7 @@ const elementsForm = document.querySelector("#popup-elements-container");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
 function createCard(data) {
-  const card = new Card(data, "#template", () => {
+  const card = new Card(data, userInfo.getUserId.bind(userInfo), "#template", () => {
     photoPopup.open(data.name, data.link);
   });
   const cardElement = card.generateCard();

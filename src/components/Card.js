@@ -1,10 +1,13 @@
+import { token, groupId } from "../config";
 export default class Card {
-  constructor({ name, link, likes = [] }, templateSelector, handleCardClick) {
+  constructor({ name, link, likes = [], _id }, getCurrentUserId, templateSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this.likes = likes;
     this.templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._cardId = _id;
+    this._getCurrentUserId = getCurrentUserId;
   }
 
   _getTemplate() {
@@ -22,12 +25,66 @@ export default class Card {
 
   _setEventListeners() {
     this.photoElement.addEventListener("click", this._handleCardClick);
-    this.likeElement.addEventListener("click", this._handleLikeElementClick); 
+    this.likeElement.addEventListener("click", this._handleLikeElementClick.bind(this)); 
     this.trashElement.addEventListener("click", this._handleTrashElementClick);
   }
 
-  _handleLikeElementClick(event) {
-    event.target.classList.toggle("elements__like_active");
+  _like() {
+    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/likes/${this._cardId}`, {
+      method: 'PUT',
+      headers: {
+        authorization: token
+      }
+    })  
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      this.likes = data.likes;
+      this._showLikes();
+      this.likeElement.classList.add("elements__like_active");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  _dislike() {
+    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/likes/${this._cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: token
+      }
+    })  
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      this.likes = data.likes;
+      this._showLikes();
+      this.likeElement.classList.remove("elements__like_active");
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  _handleLikeElementClick() {
+    const isCardLiked = this.likes.find((likeUser) => {
+      return likeUser._id === this._getCurrentUserId();
+    })
+
+    if (isCardLiked) {
+      this._dislike();
+    } else {
+      this._like();
+    }
   }
 
   _handleTrashElementClick(event) {

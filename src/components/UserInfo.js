@@ -10,7 +10,8 @@ export default class UserInfo {
         this._setUserInfo({
           name: data.name,
           job: data.about,
-          avatar: data.avatar
+          avatar: data.avatar,
+          _id: data._id
         });
       })
       .catch(error => {
@@ -18,12 +19,13 @@ export default class UserInfo {
       });
   }
 
-  _setUserInfo({ name, job, avatar }) {
+  _setUserInfo({ name, job, avatar, _id }) {
     this._nameElement.textContent = name;
     this._jobElement.textContent = job;
     if (avatar) {
       this._avatarElement.src = avatar;
     }
+    this._id = _id;
   }
 
   _fetchUserInfo() {
@@ -62,12 +64,17 @@ export default class UserInfo {
       this._setUserInfo({
         name: data.name,
         job: data.about,
-        avatar: data.avatar
+        avatar: data.avatar,
+        _id: data._id
       });
     })
     .catch(error => {
       console.log(error);
     });
+  }
+
+  getUserId () {
+    return this._id;
   }
 
   getUserInfo() {
