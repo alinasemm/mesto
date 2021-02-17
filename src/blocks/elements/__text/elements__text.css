@@ -9,4 +9,5 @@
     text-overflow: ellipsis;
     max-width: 195px;
     overflow-x: hidden;
+    align-self: center;
 }

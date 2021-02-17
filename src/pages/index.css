@@ -20,7 +20,9 @@
 @import "../blocks/elements/__photo-element/elements__photo-element.css";
 @import "../blocks/elements/__text/elements__text.css";
 @import "../blocks/elements/__group/elements__group.css";
+@import "../blocks/elements/__like-group/elements__like-group.css";
 @import "../blocks/elements/__like/elements__like.css";
+@import "../blocks/elements/__like-text/elements__like-text.css";
 @import "../blocks/elements/__like/_active/elements__like_active.css";
 @import "../blocks/elements/__trash/elements__trash.css";
 
