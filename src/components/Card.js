@@ -1,7 +1,8 @@
 export default class Card {
-  constructor({ name, link }, templateSelector, handleCardClick) {
+  constructor({ name, link, likes = [] }, templateSelector, handleCardClick) {
     this.name = name;
     this.link = link;
+    this.likes = likes;
     this.templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -16,6 +17,7 @@ export default class Card {
     this.textElement = this.cardElement.querySelector(".elements__text");
     this.likeElement = this.cardElement.querySelector(".elements__like");
     this.trashElement = this.cardElement.querySelector(".elements__trash");
+    this.likeTextElement = this.cardElement.querySelector(".elements__like-text");
   }
 
   _setEventListeners() {
@@ -41,12 +43,17 @@ export default class Card {
     this.textElement.textContent = this.name;  
   }
 
+  _showLikes() {
+    this.likeTextElement.textContent = this.likes.length;
+  }
+
   generateCard() {
     this.cardElement = this._getTemplate();
     this._findElements();
     this._setEventListeners();
     this._definePhotoElementAttributes();
     this._addTextToTextElement();
+    this._showLikes();
     return this.cardElement;
   }
 }
