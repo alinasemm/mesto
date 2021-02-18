@@ -7,6 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
+import api from "../components/Api.js"
  
 
 const editProfileButton = document.querySelector("#edit-profile-button");
@@ -48,24 +49,8 @@ deleteCardPopup.setEventListeners();
 const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.saveUserInfo(data));
 profilePopup.setEventListeners();
 
-const elementsPopup = new PopupWithForm("#popup-elements", ({ name, link }) => {
-  fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards`, {
-      method: 'POST',
-      headers: {
-        authorization: token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        link: link
-      })
-    })  
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+const elementsPopup = new PopupWithForm("#popup-elements", (data) => {
+  api.createCard(data)
     .then(createCard)
     .catch(error => {
       console.log(error);

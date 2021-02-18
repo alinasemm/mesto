@@ -1,27 +1,13 @@
-import { token, groupId } from "../config";
+import api from "./Api"
 export default class Section {
   constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
-  _fetchCards() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards`, {
-      headers: {
-        authorization: token
-      }
-    })  
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-
   // Отрисовка элементов
   renderItems() {
-    this._fetchCards()
+    api.getInitialCards()
       .then(initialItems => {
         initialItems.forEach(item => this._renderer(item));
       })

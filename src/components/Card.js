@@ -1,4 +1,4 @@
-import { token, groupId } from "../config";
+import api from "./Api";
 export default class Card {
   constructor({ name, link, likes = [], _id, owner }, getCurrentUserId, confirmDelete, templateSelector, handleCardClick) {
     this.name = name;
@@ -32,18 +32,7 @@ export default class Card {
   }
 
   _like() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/likes/${this._cardId}`, {
-      method: 'PUT',
-      headers: {
-        authorization: token
-      }
-    })  
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    return api.likeCard(this._cardId)
     .then((data) => {
       this.likes = data.likes;
       this._showLikes();
@@ -55,18 +44,7 @@ export default class Card {
   }
 
   _dislike() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/likes/${this._cardId}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: token
-      }
-    })  
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    return api.dislikeCard(this._cardId)
     .then((data) => {
       this.likes = data.likes;
       this._showLikes();
@@ -91,18 +69,7 @@ export default class Card {
 
   _handleTrashElementClick(event) {
     this._confirmDelete(() => {
-      fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/${this._cardId}`, {
-        method: 'DELETE',
-        headers: {
-          authorization: token
-        }
-      })  
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      api.deleteCard(this._cardId)
       .then(() => {
         event.target.parentNode.remove();
       })
