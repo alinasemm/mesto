@@ -1,6 +1,6 @@
 import { token, groupId } from "../config";
 export default class Card {
-  constructor({ name, link, likes = [], _id }, getCurrentUserId, templateSelector, handleCardClick) {
+  constructor({ name, link, likes = [], _id }, getCurrentUserId, confirmDelete, templateSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this.likes = likes;
@@ -8,6 +8,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._cardId = _id;
     this._getCurrentUserId = getCurrentUserId;
+    this._confirmDelete = confirmDelete;
   }
 
   _getTemplate() {
@@ -26,7 +27,7 @@ export default class Card {
   _setEventListeners() {
     this.photoElement.addEventListener("click", this._handleCardClick);
     this.likeElement.addEventListener("click", this._handleLikeElementClick.bind(this)); 
-    this.trashElement.addEventListener("click", this._handleTrashElementClick);
+    this.trashElement.addEventListener("click", this._handleTrashElementClick.bind(this));
   }
 
   _like() {
@@ -88,7 +89,9 @@ export default class Card {
   }
 
   _handleTrashElementClick(event) {
-    event.target.parentNode.remove();
+    this._confirmDelete(() => {
+      event.target.parentNode.remove();
+    });
   }
 
   _definePhotoElementAttributes() {

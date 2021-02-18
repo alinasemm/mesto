@@ -5,6 +5,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
  
 
@@ -16,10 +17,19 @@ const addElementButton = document.querySelector("#add-element-button");
 const elementsForm = document.querySelector("#popup-elements-container");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
 
-function createCard(data) {
-  const card = new Card(data, userInfo.getUserId.bind(userInfo), "#template", () => {
-    photoPopup.open(data.name, data.link);
+function confirmCardDelete (onConfirm) {
+  deleteCardPopup.open(() => {
+    console.log('confirmCardDelete callback?')
+    onConfirm();
+    deleteCardPopup.close();
   });
+}
+
+function createCard(data) {
+  const onCardClick = () => {
+    photoPopup.open(data.name, data.link);
+  }
+  const card = new Card(data, userInfo.getUserId.bind(userInfo), confirmCardDelete, "#template", onCardClick);
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }
@@ -29,6 +39,9 @@ const userInfo = new UserInfo({
   jobSelector: "#profile-job",
   avatarSelector: ".profile__avatar"
 });
+
+const deleteCardPopup = new PopupWithConfirm("#popup-delete-card");
+deleteCardPopup.setEventListeners();
 
 const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.saveUserInfo(data));
 profilePopup.setEventListeners();
