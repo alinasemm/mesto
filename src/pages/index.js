@@ -46,11 +46,13 @@ const userInfo = new UserInfo({
 const deleteCardPopup = new PopupWithConfirm("#popup-delete-card");
 deleteCardPopup.setEventListeners();
 
-const profilePopup = new PopupWithForm("#popup-profile", (data) => userInfo.saveUserInfo(data));
+const profilePopup = new PopupWithForm("#popup-profile", "Сохранить", "Сохранение...", (data) => {
+  return userInfo.saveUserInfo(data);
+});
 profilePopup.setEventListeners();
 
-const elementsPopup = new PopupWithForm("#popup-elements", (data) => {
-  api.createCard(data)
+const elementsPopup = new PopupWithForm("#popup-elements", "Создать", "Создание...", (data) => {
+  return api.createCard(data)
     .then(createCard)
     .catch(error => {
       console.log(error);
@@ -62,8 +64,8 @@ const photoPopup = new PopupWithImage("#popup-preview");
 photoPopup.setEventListeners();
 
 //Конструктор (селектор попапа и то, что происходит именно с ним при отправке формы)
-const avatarPopup = new PopupWithForm("#popup-refresh-avatar", ({ url }) => {
-  userInfo.updateAvatar(url);
+const avatarPopup = new PopupWithForm("#popup-refresh-avatar", "Сохранить", "Сохранение...", ({ url }) => {
+  return userInfo.updateAvatar(url);
 });
 avatarPopup.setEventListeners();
 
