@@ -44,6 +44,36 @@ export default class UserInfo {
     });
   }
 
+  updateAvatar(avatar) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar
+      })
+    })  
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      this._setUserInfo({
+        name: data.name,
+        job: data.about,
+        avatar: data.avatar,
+        _id: data._id
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   saveUserInfo({ name, job }) {
     return fetch(`https://mesto.nomoreparties.co/v1/${groupId}/users/me`, {
       method: 'PATCH',

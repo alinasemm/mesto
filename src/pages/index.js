@@ -76,8 +76,9 @@ elementsPopup.setEventListeners();
 const photoPopup = new PopupWithImage("#popup-preview");
 photoPopup.setEventListeners();
 
+//Конструктор (селектор попапа и то, что происходит именно с ним при отправке формы)
 const avatarPopup = new PopupWithForm("#popup-refresh-avatar", ({ url }) => {
-  console.log(url);
+  userInfo.updateAvatar(url);
 });
 avatarPopup.setEventListeners();
 
