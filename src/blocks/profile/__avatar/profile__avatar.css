@@ -4,6 +4,9 @@
     margin-right: 30px;
     border-radius: 50%;
     object-fit: cover;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 680px) {

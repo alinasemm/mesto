@@ -60,7 +60,10 @@
 
   <section class="profile">
     <div class="profile__container">
-      <img class="profile__avatar" src="<%=require('./images/avatar-kusto.png')%>" alt="изображение Кусто" />
+      <div class="profile__avatar">
+        <img class="profile__avatar-image" src="<%=require('./images/avatar-kusto.png')%>" alt="изображение Кусто" />
+        <div class="profile__avatar-overlay"></div>
+      </div>
       <div class="profile__info">
         <div class="profile__information">
           <h1 class="profile__name" id="profile-name"></h1>

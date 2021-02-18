@@ -8,6 +8,8 @@
 @import "../blocks/profile/profile.css";
 @import "../blocks/profile/__container/profile__container.css";
 @import "../blocks/profile/__avatar/profile__avatar.css";
+@import "../blocks/profile/__avatar-overlay/profile__avatar-overlay.css";
+@import "../blocks/profile/__avatar-image/profile__avatar-image.css";
 @import "../blocks/profile/__info/profile__info.css";
 @import "../blocks/profile/__add-button/profile__add-button.css";
 @import "../blocks/profile/__edit-button/profile__edit-button.css";
