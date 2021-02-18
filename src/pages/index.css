@@ -42,6 +42,7 @@
 
 @import "../blocks/popup/__name/popup__name.css";
 @import "../blocks/popup/__name/_elements/popup__name_elements.css";
+@import "../blocks/popup/__name/_delete-card/popup__name_delete-card.css";
 
 @import "../blocks/popup/__field/popup__field.css";
 @import "../blocks/popup/__field/_elements/popup__field_elements.css";
