@@ -19,7 +19,6 @@ const submitElementsButton = document.querySelector("#popup__submit-button_eleme
 
 function confirmCardDelete (onConfirm) {
   deleteCardPopup.open(() => {
-    console.log('confirmCardDelete callback?')
     onConfirm();
     deleteCardPopup.close();
   });
@@ -37,7 +36,10 @@ function createCard(data) {
 const userInfo = new UserInfo({
   nameSelector: "#profile-name",
   jobSelector: "#profile-job",
-  avatarSelector: ".profile__avatar"
+  avatarSelector: ".profile__avatar-image",
+  overlaySelector: ".profile__avatar-overlay"
+}, () => {
+  avatarPopup.open();
 });
 
 const deleteCardPopup = new PopupWithConfirm("#popup-delete-card");
@@ -73,6 +75,11 @@ elementsPopup.setEventListeners();
 
 const photoPopup = new PopupWithImage("#popup-preview");
 photoPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm("#popup-refresh-avatar", ({ url }) => {
+  console.log(url);
+});
+avatarPopup.setEventListeners();
 
 const validationConfig = {
   inputSelector: ".popup__field",

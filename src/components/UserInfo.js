@@ -1,9 +1,11 @@
 import { token, groupId } from "../config";
 export default class UserInfo {
-  constructor({ nameSelector, jobSelector, avatarSelector }) {
+  constructor({ nameSelector, jobSelector, avatarSelector, overlaySelector }, onOverlayClick) {
     this._nameElement = document.querySelector(nameSelector);
     this._jobElement = document.querySelector(jobSelector);
     this._avatarElement = document.querySelector(avatarSelector);
+    this._overlayElement = document.querySelector(overlaySelector);
+    this._overlayElement.addEventListener("click", onOverlayClick);
 
     this._fetchUserInfo()
       .then((data) => {
