@@ -1,6 +1,6 @@
 import { token, groupId } from "../config";
 export default class Card {
-  constructor({ name, link, likes = [], _id }, getCurrentUserId, confirmDelete, templateSelector, handleCardClick) {
+  constructor({ name, link, likes = [], _id, owner }, getCurrentUserId, confirmDelete, templateSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this.likes = likes;
@@ -9,6 +9,7 @@ export default class Card {
     this._cardId = _id;
     this._getCurrentUserId = getCurrentUserId;
     this._confirmDelete = confirmDelete;
+    this._ownerId = owner._id;
   }
 
   _getTemplate() {
@@ -77,8 +78,8 @@ export default class Card {
   }
 
   _handleLikeElementClick() {
-    const isCardLiked = this.likes.find((likeUser) => {
-      return likeUser._id === this._getCurrentUserId();
+    const isCardLiked = this.likes.find((userWhoLikedCard) => {
+      return userWhoLikedCard._id === this._getCurrentUserId();
     })
 
     if (isCardLiked) {
@@ -90,7 +91,24 @@ export default class Card {
 
   _handleTrashElementClick(event) {
     this._confirmDelete(() => {
-      event.target.parentNode.remove();
+      fetch(`https://mesto.nomoreparties.co/v1/${groupId}/cards/${this._cardId}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: token
+        }
+      })  
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(() => {
+        event.target.parentNode.remove();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     });
   }
 
@@ -107,6 +125,13 @@ export default class Card {
     this.likeTextElement.textContent = this.likes.length;
   }
 
+  _selectTrashVisibility() {
+    const isMyCard = this._ownerId === this._getCurrentUserId();
+    if(isMyCard) {
+      this.trashElement.classList.add("elements__trash_visible");
+    }
+  }
+
   generateCard() {
     this.cardElement = this._getTemplate();
     this._findElements();
@@ -114,6 +139,7 @@ export default class Card {
     this._definePhotoElementAttributes();
     this._addTextToTextElement();
     this._showLikes();
+    this._selectTrashVisibility();
     return this.cardElement;
   }
 }

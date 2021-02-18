@@ -11,6 +11,7 @@
     cursor: pointer;
     transition: opacity 150ms;
     border-radius: 2px;
+    display: none;
 }
 
 .elements__trash:hover {

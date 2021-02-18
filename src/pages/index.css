@@ -25,6 +25,7 @@
 @import "../blocks/elements/__like-text/elements__like-text.css";
 @import "../blocks/elements/__like/_active/elements__like_active.css";
 @import "../blocks/elements/__trash/elements__trash.css";
+@import "../blocks/elements/__trash/_visible/elements__trash_visible.css";
 
 @import "../blocks/footer/footer.css";
 
