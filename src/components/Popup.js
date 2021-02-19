@@ -1,6 +1,6 @@
 export default class Popup {
   constructor(popupSelector) {
-    this._popup = document.querySelector(popupSelector);
+    this._popup = document.querySelector(popupSelector, focus);
     this._crossIcon = this._popup.querySelector('.popup__close-icon');
     this._handleEscClose = this._handleEscClose.bind(this);
   }
@@ -19,7 +19,10 @@ export default class Popup {
 
   open() {
     this._popup.classList.add("popup_opened");
-    this._popup.addEventListener("keydown", this._handleEscClose);  
+    this._popup.addEventListener("keydown", this._handleEscClose);
+
+    const animationTime = 150
+    setTimeout(() => this._popup.focus(), animationTime + 1);
   }
   
   close() {
