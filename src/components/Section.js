@@ -1,13 +1,13 @@
-import api from "./Api"
 export default class Section {
-  constructor({ renderer }, containerSelector) {
+  constructor({ renderer, containerSelector, getItems }) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
+    this._getItems = getItems;
   }
 
   // Отрисовка элементов
   renderItems() {
-    api.getInitialCards()
+    this._getItems()
       .then(initialItems => {
         initialItems.forEach(item => this._renderer(item));
       })

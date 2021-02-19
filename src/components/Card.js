@@ -1,6 +1,14 @@
-import api from "./Api";
 export default class Card {
-  constructor({ name, link, likes = [], _id, owner }, getCurrentUserId, confirmDelete, templateSelector, handleCardClick) {
+  constructor(
+    { name, link, likes = [], _id, owner }, 
+    getCurrentUserId, 
+    confirmDelete, 
+    templateSelector, 
+    handleCardClick,
+    likeCard,
+    dislikeCard,
+    deleteCard
+  ) {
     this.name = name;
     this.link = link;
     this.likes = likes;
@@ -10,6 +18,9 @@ export default class Card {
     this._getCurrentUserId = getCurrentUserId;
     this._confirmDelete = confirmDelete;
     this._ownerId = owner._id;
+    this._likeCard = likeCard;
+    this._dislikeCard = dislikeCard;
+    this._deleteCard = deleteCard;
   }
 
   _getTemplate() {
@@ -38,7 +49,7 @@ export default class Card {
   }
 
   _like() {
-    return api.likeCard(this._cardId)
+    this._likeCard(this._cardId)
     .then((data) => {
       this.likes = data.likes;
       this._showLikes();
@@ -56,7 +67,7 @@ export default class Card {
   }
 
   _dislike() {
-    return api.dislikeCard(this._cardId)
+    this._dislikeCard(this._cardId)
     .then((data) => {
       this.likes = data.likes;
       this._showLikes();
@@ -78,7 +89,7 @@ export default class Card {
 
   _handleTrashElementClick(event) {
     this._confirmDelete(() => {
-      api.deleteCard(this._cardId)
+      this._deleteCard(this._cardId)
       .then(() => {
         event.target.parentNode.remove();
       })

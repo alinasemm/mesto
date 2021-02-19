@@ -1,4 +1,3 @@
-import { token, groupId } from "../config";
 import '../pages/index.css';
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -29,7 +28,16 @@ function createCard(data) {
   const onCardClick = () => {
     photoPopup.open(data.name, data.link);
   }
-  const card = new Card(data, userInfo.getUserId.bind(userInfo), confirmCardDelete, "#template", onCardClick);
+  const card = new Card(
+    data, 
+    userInfo.getUserId.bind(userInfo), 
+    confirmCardDelete, 
+    "#template", 
+    onCardClick, 
+    api.likeCard.bind(api),
+    api.dislikeCard.bind(api),
+    api.deleteCard.bind(api)
+  );
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }
@@ -38,9 +46,11 @@ const userInfo = new UserInfo({
   nameSelector: "#profile-name",
   jobSelector: "#profile-job",
   avatarSelector: ".profile__avatar-image",
-  overlaySelector: ".profile__avatar-overlay"
-}, () => {
-  avatarPopup.open();
+  overlaySelector: ".profile__avatar-overlay",
+  onOverlayClick: () => avatarPopup.open(), 
+  fetchUserInfo: api.getUserInfo.bind(api),
+  updateAvatar: api.updateAvatar.bind(api),
+  updateUserInfo: api.saveUserInfo.bind(api)
 });
 
 const deleteCardPopup = new PopupWithConfirm("#popup-delete-card");
@@ -96,8 +106,10 @@ addElementButton.addEventListener("click", function () {
 });
 
 const cardsList = new Section ({
-  renderer: createCard
-}, ".elements");
+  renderer: createCard, 
+  containerSelector: ".elements", 
+  getItems: api.getInitialCards.bind(api)
+});
 
 cardsList.renderItems();
 

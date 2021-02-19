@@ -1,4 +1,5 @@
-import { token, groupId } from "../config";
+const token = "74570189-8886-4b9d-9cd8-6a0ec7e108dc";
+const groupId = "cohort-20";
 
 class Api {
   constructor({ baseUrl, headers }) {
