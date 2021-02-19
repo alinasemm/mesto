@@ -16,6 +16,7 @@ const submitProfileButton = document.querySelector("#popup__submit-button");
 const addElementButton = document.querySelector("#add-element-button");
 const elementsForm = document.querySelector("#popup-elements-container");
 const submitElementsButton = document.querySelector("#popup__submit-button_elements");
+const overlayAvatar = document.querySelector(".profile__avatar-overlay");
 
 function confirmCardDelete (onConfirm) {
   deleteCardPopup.open(() => {
@@ -46,8 +47,6 @@ const userInfo = new UserInfo({
   nameSelector: "#profile-name",
   jobSelector: "#profile-job",
   avatarSelector: ".profile__avatar-image",
-  overlaySelector: ".profile__avatar-overlay",
-  onOverlayClick: () => avatarPopup.open(), 
   fetchUserInfo: api.getUserInfo.bind(api),
   updateAvatar: api.updateAvatar.bind(api),
   updateUserInfo: api.saveUserInfo.bind(api)
@@ -75,7 +74,7 @@ photoPopup.setEventListeners();
 
 //Конструктор (селектор попапа и то, что происходит именно с ним при отправке формы)
 const avatarPopup = new PopupWithForm("#popup-refresh-avatar", "Сохранить", "Сохранение...", ({ url }) => {
-  return userInfo.updateAvatar(url);
+  return userInfo.editAvatar(url);
 });
 avatarPopup.setEventListeners();
 
@@ -104,6 +103,8 @@ addElementButton.addEventListener("click", function () {
   elementsPopup.clearInputs();
   elementsPopup.open();
 });
+
+overlayAvatar.addEventListener("click", () => avatarPopup.open());
 
 const cardsList = new Section ({
   renderer: createCard, 

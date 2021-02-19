@@ -3,8 +3,6 @@ export default class UserInfo {
     nameSelector, 
     jobSelector, 
     avatarSelector, 
-    overlaySelector, 
-    onOverlayClick, 
     fetchUserInfo, 
     updateAvatar, 
     updateUserInfo
@@ -12,10 +10,9 @@ export default class UserInfo {
     this._nameElement = document.querySelector(nameSelector);
     this._jobElement = document.querySelector(jobSelector);
     this._avatarElement = document.querySelector(avatarSelector);
-    this._overlayElement = document.querySelector(overlaySelector);
-    this._overlayElement.addEventListener("click", onOverlayClick);
     this._fetchUserInfo = fetchUserInfo;
     this._updateAvatar = updateAvatar;
+    this._updateUserInfo = updateUserInfo;
 
     this._fetchUserInfo()
       .then((data) => {
@@ -40,34 +37,34 @@ export default class UserInfo {
     this._id = _id;
   }
 
-  _editAvatar() {
-    this._updateAvatar()
-    .then((data) => {
-      this._setUserInfo({
-        name: data.name,
-        job: data.about,
-        avatar: data.avatar,
-        _id: data._id
+  editAvatar(avatar) {
+    return this._updateAvatar(avatar)
+      .then((data) => {
+        this._setUserInfo({
+          name: data.name,
+          job: data.about,
+          avatar: data.avatar,
+          _id: data._id
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 
   saveUserInfo({ name, job }) {
-    this._updateUserInfo({ name, about: job })
-    .then((data) => {
-      this._setUserInfo({
-        name: data.name,
-        job: data.about,
-        avatar: data.avatar,
-        _id: data._id
+    return this._updateUserInfo({ name, about: job })
+      .then((data) => {
+        this._setUserInfo({
+          name: data.name,
+          job: data.about,
+          avatar: data.avatar,
+          _id: data._id
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 
   getUserId () {

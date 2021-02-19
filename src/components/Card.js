@@ -49,15 +49,15 @@ export default class Card {
   }
 
   _like() {
-    this._likeCard(this._cardId)
-    .then((data) => {
-      this.likes = data.likes;
-      this._showLikes();
-      this.likeElement.classList.add("elements__like_active");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    return this._likeCard(this._cardId)
+      .then((data) => {
+        this.likes = data.likes;
+        this._showLikes();
+        this.likeElement.classList.add("elements__like_active");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   _fillLikeElement() {
@@ -67,19 +67,18 @@ export default class Card {
   }
 
   _dislike() {
-    this._dislikeCard(this._cardId)
-    .then((data) => {
-      this.likes = data.likes;
-      this._showLikes();
-      this.likeElement.classList.remove("elements__like_active");
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    return this._dislikeCard(this._cardId)
+      .then((data) => {
+        this.likes = data.likes;
+        this._showLikes();
+        this.likeElement.classList.remove("elements__like_active");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   _handleLikeElementClick() {
-
     if (this._isCardLikedByCurrentUser()) {
       this._dislike();
     } else {
@@ -90,12 +89,12 @@ export default class Card {
   _handleTrashElementClick(event) {
     this._confirmDelete(() => {
       this._deleteCard(this._cardId)
-      .then(() => {
-        event.target.parentNode.remove();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          event.target.parentNode.remove();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
   }
 

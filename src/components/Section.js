@@ -7,7 +7,7 @@ export default class Section {
 
   // Отрисовка элементов
   renderItems() {
-    this._getItems()
+    return this._getItems()
       .then(initialItems => {
         initialItems.forEach(item => this._renderer(item));
       })
