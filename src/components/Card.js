@@ -31,6 +31,12 @@ export default class Card {
     this.trashElement.addEventListener("click", this._handleTrashElementClick.bind(this));
   }
 
+  _isCardLikedByCurrentUser() {
+    return this.likes.find((userWhoLikedCard) => {
+      return userWhoLikedCard._id === this._getCurrentUserId();
+    });
+  }
+
   _like() {
     return api.likeCard(this._cardId)
     .then((data) => {
@@ -41,6 +47,12 @@ export default class Card {
     .catch((error) => {
       console.log(error);
     });
+  }
+
+  _fillLikeElement() {
+    if(this._isCardLikedByCurrentUser()) {
+      this.likeElement.classList.add("elements__like_active");
+    }
   }
 
   _dislike() {
@@ -56,11 +68,8 @@ export default class Card {
   }
 
   _handleLikeElementClick() {
-    const isCardLiked = this.likes.find((userWhoLikedCard) => {
-      return userWhoLikedCard._id === this._getCurrentUserId();
-    })
 
-    if (isCardLiked) {
+    if (this._isCardLikedByCurrentUser()) {
       this._dislike();
     } else {
       this._like();
@@ -107,6 +116,7 @@ export default class Card {
     this._addTextToTextElement();
     this._showLikes();
     this._selectTrashVisibility();
+    this._fillLikeElement();
     return this.cardElement;
   }
 }
